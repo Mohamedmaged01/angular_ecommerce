@@ -40,8 +40,14 @@
                 <td>Category 1 Description</td>
                 <td>Active</td>
                 <td>
-                    <button class="btn btn-sm btn-primary" [routerLink]="'/categorydetails'"><i class="fa fa-eye "></i></button>
-                    <button class="btn btn-sm btn-warning ms-2 "><i class="fa fa-pen "></i></button>
+                    <button class="btn btn-sm btn-primary" [routerLink]="'/categorydetails'" [queryParams]="{ view: 'view' }">
+                        <i class="fa fa-eye"></i>
+                      </button>
+
+                    <button class="btn btn-sm btn-warning ms-2" [routerLink]="'/categorydetails'" [queryParams]="{ view: 'edit' }">
+                        <i class="fa fa-pen"></i>
+                      </button>
+
                     <button class="btn btn-sm btn-danger ms-2 "><i class="fa fa-trash "></i></button>
                 </td>
             </tr>
