@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import { SidebarComponent } from './admin/sidebar/sidebar.component';
 import { CategoryComponent } from './admin/category/category.component';
 import { AddcategoryComponent } from './admin/addcategory/addcategory.component';
+import { CategorydetailsComponent } from './admin/categorydetails/categorydetails.component';
 
 export const routes: Routes = [
     {
@@ -18,5 +19,10 @@ export const routes: Routes = [
         path:'addcategory',
         component:AddcategoryComponent,
         title:'Add Category'
+    },
+    {
+        path:'categorydetails',
+        component:CategorydetailsComponent,
+        title:'Category Details' 
     }
 ];
