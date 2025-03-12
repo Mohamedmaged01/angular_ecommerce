@@ -27,7 +27,7 @@
               </button>
                             <ul class="dropdown-menu">
                                 <li><a class="dropdown-item" href="#">Product</a></li>
-                                <li><a class="dropdown-item" href="#">Category</a></li>
+                                <li><a class="dropdown-item" [routerLink]="'/category'">Category</a></li>
                             </ul>
                         </div>
                     </li>
@@ -39,7 +39,7 @@
             >
           </li>
           <li class="list-group mt-3">
-            <a href="#"
+            <a [routerLink]="'/customer'"
               ><span><i class="fa-solid fa-users mx-2"></i>Customers</span></a
             >
           </li>
