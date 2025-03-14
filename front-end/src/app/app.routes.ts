@@ -7,6 +7,7 @@ import { CustomerComponent } from './admin/customer/customer.component';
 import { CustomerdetailsComponent } from './admin/customerdetails/customerdetails.component';
 import { UpdatecustomerComponent } from './admin/updatecustomer/updatecustomer.component';
 import { OrderComponent } from './admin/order/order.component';
+import { OrderdetailsComponent } from './admin/orderdetails/orderdetails.component';
 
 export const routes: Routes = [
     {
@@ -48,5 +49,11 @@ export const routes: Routes = [
         path:'order',
         component:OrderComponent,
         title:'Order'
+    },
+    {
+        path:'orderdetails',
+        component:OrderdetailsComponent,
+        title:'Order Details'
+
     }
 ];

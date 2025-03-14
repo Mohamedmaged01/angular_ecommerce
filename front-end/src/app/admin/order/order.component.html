@@ -1,1 +1,62 @@
 <app-sidebar></app-sidebar>
+<div class="container mt-5">
+    <h1>Orders</h1>
+    <div class="d-flex justify-content-between align-items-center">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#" class="text-dark">Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Orders</li>
+            </ol>
+        </nav>
+    </div>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Product image</th>
+                <th scope="col">Product Name</th>
+                <th scope="col">Date</th>
+                <th scope="col">Customer</th>
+                <th scope="col">Total</th>
+                <th scope="col">Payment Method</th>
+                <th scope="col">Status</th>
+                <th scope="col">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- @for (item of categories; track $index) { -->
+            <tr>
+                <th scope="row">1</th>
+                <td>
+                    <img src="" alt=" food " width="50 " height="50 "></td>
+                <td>orange <br> +3 other Product</td>
+                <td>20//5/2025</td>
+                <td>Mostafa</td>
+                <td>125$</td>
+                <td>Cash</td>
+                <td>Proccessing</td>
+                <td>
+                    <button class="btn btn-sm btn-primary" [routerLink]="'/orderdetails'">
+                        <i class="fa fa-eye"></i>
+                      </button>
+                </td>
+            </tr>
+            <!-- } -->
+            <tr>
+                <th scope="row">1</th>
+                <td>
+                    <img src="" alt=" food " width="50 " height="50 "></td>
+                <td>orange <br> +3 other Product</td>
+                <td>20//5/2025</td>
+                <td>Maged</td>
+                <td>125$</td>
+                <td>card</td>
+                <td>Delived</td>
+                <td>
+                    <button class="btn btn-sm btn-primary" [routerLink]="'/customerdetails'">
+                        <i class="fa fa-eye"></i>
+                      </button>
+                </td>
+            </tr>
+    </table>
+</div>
