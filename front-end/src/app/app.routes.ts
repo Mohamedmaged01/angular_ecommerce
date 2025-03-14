@@ -6,6 +6,7 @@ import { CategorydetailsComponent } from './admin/categorydetails/categorydetail
 import { CustomerComponent } from './admin/customer/customer.component';
 import { CustomerdetailsComponent } from './admin/customerdetails/customerdetails.component';
 import { UpdatecustomerComponent } from './admin/updatecustomer/updatecustomer.component';
+import { OrderComponent } from './admin/order/order.component';
 
 export const routes: Routes = [
     {
@@ -42,5 +43,10 @@ export const routes: Routes = [
         path:'updatecustomer',
         component:UpdatecustomerComponent,
         title:'Update Customer'
+    },
+    {
+        path:'order',
+        component:OrderComponent,
+        title:'Order'
     }
 ];
