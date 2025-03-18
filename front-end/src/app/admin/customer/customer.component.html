@@ -9,7 +9,7 @@
             </ol>
 
         </nav>
-        <button class="btn btn-info" [routerLink]="'/addcategory'" disabled> + Add Customer</button>
+        <!-- <button class="btn btn-info" [routerLink]="'/addcategory'" disabled> + Add Customer</button> -->
     </div>
     <nav class="navbar bg-body-tertiary">
         <div class="container-fluid">
@@ -23,26 +23,25 @@
         <thead>
             <tr>
                 <th scope="col">ID</th>
-                <th scope="col">Customer image</th>
                 <th scope="col">Customer Name</th>
+                <th scope="col">Email</th>
                 <th scope="col">Phone</th>
-                <th scope="col">Orders</th>
-                <th scope="col">Status</th>
+                <th scope="col">Role</th>
+                <th scope="col">points</th>
                 <th scope="col">Created</th>
                 <th scope="col">Action</th>
             </tr>
         </thead>
         <tbody>
-            <!-- @for (item of categories; track $index) { -->
+            @for (item of customers; track $index) {
             <tr>
-                <th scope="row">1</th>
-                <td>
-                    <img src="" alt=" food " width="50 " height="50 "></td>
-                <td>Mostafa</td>
-                <td>01060495817</td>
-                <td>5</td>
-                <td>Active</td>
-                <td>20/1/2025</td>
+                <th scope="row">{{$index +1}}</th>
+                <td>{{item.name}}</td>
+                <td>{{item.email}}</td>
+                <td>{{item.phone}}</td>
+                <td>{{item.role}}</td>
+                <td>{{item.point}}</td>
+                <td>{{item.createdAt | date: 'dd/MM/yyyy' }}</td>
                 <td>
                     <button class="btn btn-sm btn-primary" [routerLink]="'/customerdetails'">
                         <i class="fa fa-eye"></i>
@@ -52,30 +51,10 @@
                         <i class="fa fa-pen"></i>
                       </button>
 
-                    <button class="btn btn-sm btn-danger ms-2 "><i class="fa fa-trash "></i></button>
+                    <button class="btn btn-sm btn-danger ms-2 " (click)="deleteCustomers(item._id)"><i class="fa fa-trash "></i></button>
                 </td>
             </tr>
-            <!-- } -->
-            <tr>
-                <th scope="row">1</th>
-                <td>
-                    <img src="" alt=" food " width="50 " height="50 "></td>
-                <td>Mostafa</td>
-                <td>01060495817</td>
-                <td>5</td>
-                <td>Active</td>
-                <td>20/1/2025</td>
-                <td>
-                    <button class="btn btn-sm btn-primary" [routerLink]="'/customerdetails'">
-                        <i class="fa fa-eye"></i>
-                      </button>
-
-                    <button class="btn btn-sm btn-warning ms-2" [routerLink]="'/updatecustomer'">
-                        <i class="fa fa-pen"></i>
-                      </button>
-
-                    <button class="btn btn-sm btn-danger ms-2 "><i class="fa fa-trash "></i></button>
-                </td>
-            </tr>
+            }
+        </tbody>
     </table>
 </div>
