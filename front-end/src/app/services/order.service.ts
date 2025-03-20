@@ -18,4 +18,14 @@ export class OrderService {
     
     return this.http.get<any>(this.API_URL);
   }
+
+  private API_URL1 = 'http://localhost:3000/getoderbyid';
+  getOrderById(orderid : any){
+    const token = localStorage.getItem('token');
+    if (!token) {
+      console.error("No token found! User may need to log in.");
+      return throwError(() => new Error("No token available. Please log in."));
+      }
+      return this.http.get<any>(`${this.API_URL1}/${orderid}`);
+  }
 }

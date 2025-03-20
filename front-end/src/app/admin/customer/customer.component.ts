@@ -65,7 +65,11 @@ export class CustomerComponent implements OnInit {
     });
   }
 
-  goToCustomerDetails(customer :any){
+  goToUpdateCustomer(customer :any){
     this.router.navigate(['/updatecustomer' , customer._id]);
+  }
+
+  goToCustomerDetails(customer:any){
+    this.router.navigate(['/customerdetails' , customer._id]);
   }
 }

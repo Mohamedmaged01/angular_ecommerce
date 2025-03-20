@@ -2,15 +2,17 @@ import { Component ,OnInit } from '@angular/core';
 import { SidebarComponent } from '../sidebar/sidebar.component';
 import { RouterLink } from '@angular/router';
 import { OrderService } from '../../services/order.service';
+import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-order',
-  imports: [SidebarComponent,RouterLink],
+  imports: [SidebarComponent,RouterLink,CommonModule],
   templateUrl: './order.component.html',
   styleUrl: './order.component.css'
 })
 export class OrderComponent implements OnInit {
-  constructor(private orderService: OrderService) { }
+  constructor(private orderService: OrderService, private router: Router) { }
 
   orders: any[] = [];
   isLoading = false;
@@ -30,6 +32,7 @@ export class OrderComponent implements OnInit {
     this.orderService.getOrders().subscribe({
       next:(data)=>{
         this.orders = data.orders || data;
+        console.log(this.orders)
         this.isLoading = false;
         },
         error:(error)=>{
@@ -37,5 +40,9 @@ export class OrderComponent implements OnInit {
           this.errorMessage = error.message;
           }
     });
+  }
+
+  goToOrderDetails(order :any){
+    this.router.navigate(['/orderdetails' , order._id]);
   }
 }

@@ -29,14 +29,14 @@
                 <th scope="row">1</th>
                 <td>
                     <img src="" alt=" food " width="50 " height="50 "></td>
-                <td>orange <br> +3 other Product</td>
-                <td>20//5/2025</td>
-                <td>Mostafa</td>
-                <td>125$</td>
-                <td>Cash</td>
-                <td>Proccessing</td>
+                <td>{{item.items[0].name}} <br> +{{item.items.length-1}} other Product</td>
+                <td>{{item.createdAt | date : 'dd/mm/yyyy'}}</td>
+                <td>{{item.user.name}}</td>
+                <td>{{item.totalAmount}}$</td>
+                <td>{{item.paymentMethod.type}}</td>
+                <td>{{item.status}}</td>
                 <td>
-                    <button class="btn btn-sm btn-primary" [routerLink]="'/orderdetails'">
+                    <button class="btn btn-sm btn-primary" (click)="goToOrderDetails(item)">
                         <i class="fa fa-eye"></i>
                       </button>
                 </td>

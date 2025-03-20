@@ -51,7 +51,7 @@ export const routes: Routes = [
         title:'Order'
     },
     {
-        path:'orderdetails',
+        path:'orderdetails/:id',
         component:OrderdetailsComponent,
         title:'Order Details'
 

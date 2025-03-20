@@ -43,11 +43,11 @@
                 <td>{{item.point}}</td>
                 <td>{{item.createdAt | date: 'dd/MM/yyyy' }}</td>
                 <td>
-                    <button class="btn btn-sm btn-primary" [routerLink]="'/customerdetails'">
+                    <button class="btn btn-sm btn-primary" (click)="goToCustomerDetails(item)">
                         <i class="fa fa-eye"></i>
                       </button>
 
-                    <button class="btn btn-sm btn-warning ms-2" (click)="goToCustomerDetails(item)">
+                    <button class="btn btn-sm btn-warning ms-2" (click)="goToUpdateCustomer(item)">
                         <i class="fa fa-pen"></i>
                       </button>
 

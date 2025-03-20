@@ -21,9 +21,9 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <p class="card-text"><i class="fa-solid fa-calendar m-2 text-secondary"></i> <strong>Added:</strong> 20/1/2025</p>
-                    <p class="card-text"><i class="fa-solid fa-sitemap m-2 text-secondary"></i> <strong>Items:</strong> 3 products</p>
-                    <p class="card-text"><i class="fa-solid fa-hourglass-half m-2 text-secondary"></i> <strong>Status:</strong> Processing</p>
+                    <p class="card-text"><i class="fa-solid fa-calendar m-2 text-secondary"></i> <strong>Added:</strong>{{order.createdAt | date: 'dd/MM/yyyy' }}</p>
+                    <p class="card-text"><i class="fa-solid fa-sitemap m-2 text-secondary"></i> <strong>Items:</strong> {{order.items.length}} products</p>
+                    <p class="card-text"><i class="fa-solid fa-hourglass-half m-2 text-secondary"></i> <strong>Status:</strong> {{order.status}}</p>
                 </div>
             </div>
         </div>
@@ -34,9 +34,9 @@
                     <h5><i class="fa-solid fa-user m-2"></i> Customer Details</h5>
                 </div>
                 <div class="card-body">
-                    <p class="card-text"><i class="fa-solid fa-user m-2 text-secondary"></i> <strong>Name:</strong> Mostafa</p>
-                    <p class="card-text"><i class="fa-solid fa-envelope m-2 text-secondary"></i> <strong>Email:</strong> mostafa.com</p>
-                    <p class="card-text"><i class="fa-solid fa-phone m-2 text-secondary"></i> <strong>Phone:</strong> 01060495817</p>
+                    <p class="card-text"><i class="fa-solid fa-user m-2 text-secondary"></i> <strong>Name:</strong> {{order.user.name}}</p>
+                    <p class="card-text"><i class="fa-solid fa-envelope m-2 text-secondary"></i> <strong>Email:</strong> {{order.user.email}}</p>
+                    <p class="card-text"><i class="fa-solid fa-phone m-2 text-secondary"></i> <strong>Phone:</strong> {{order.user.phone}}</p>
                 </div>
             </div>
         </div>
@@ -47,9 +47,9 @@
                     <h5><i class="fa-solid fa-credit-card m-2"></i> Payment Details</h5>
                 </div>
                 <div class="card-body">
-                    <p class="card-text"><i class="fa-solid fa-money-bill m-2 text-secondary"></i> <strong>Method:</strong> Cash</p>
-                    <p class="card-text"><i class="fa-solid fa-hourglass-start m-2 text-secondary"></i> <strong>Status:</strong> Pending</p>
-                    <p class="card-text"><i class="fa-solid fa-dollar-sign m-2 text-secondary"></i> <strong>Total:</strong> $604</p>
+                    <p class="card-text"><i class="fa-solid fa-money-bill m-2 text-secondary"></i> <strong>Method:</strong> {{order.paymentMethod.type}}</p>
+                    <p class="card-text"><i class="fa-solid fa-hourglass-start m-2 text-secondary"></i> <strong>Status:</strong> {{order.paymentStatus}}</p>
+                    <p class="card-text"><i class="fa-solid fa-dollar-sign m-2 text-secondary"></i> <strong>Total:</strong> ${{order.totalAmount}}</p>
                 </div>
             </div>
         </div>
@@ -73,18 +73,14 @@
                             </tr>
                         </thead>
                         <tbody>
+                            @for(item of order.items; track $index){
                             <tr>
-                                <td>Product 1</td>
-                                <td>2</td>
-                                <td>$100</td>
-                                <td>$200</td>
+                                <td>{{item.name}}</td>
+                                <td>{{item.quantity}}</td>
+                                <td>{{item.price}}</td>
+                                <td>{{item.subtotal}}</td>
                             </tr>
-                            <tr>
-                                <td>Product 2</td>
-                                <td>3</td>
-                                <td>$150</td>
-                                <td>$450</td>
-                            </tr>
+                            }
                         </tbody>
                     </table>
                 </div>
@@ -97,10 +93,10 @@
                 </div>
                 <div class="card-body">
                     <p class="card-text"><i class="fa-solid fa-house m-2 text-secondary">
-                    </i> <strong>Biling Address:</strong><br> 123 Main St, Anytown, USA
+                    </i> <strong>Biling Address:</strong><br> {{order.user.address}}
                     </p>
                     <p class="card-text"><i class="fa-solid fa-house m-2 text-secondary">
-                    </i> <strong>Shipping Address:</strong><br> 123 Main St, Anytown, USA
+                    </i> <strong>Shipping Address:</strong><br>{{order.shippingAddress.city}}, {{order.shippingAddress.street}}
                     </p>
                 </div>
             </div>
