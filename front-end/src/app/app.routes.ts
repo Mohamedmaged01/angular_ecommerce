@@ -4,18 +4,16 @@ import { CategoryComponent } from './admin/category/category.component';
 import { AddcategoryComponent } from './admin/addcategory/addcategory.component';
 import { CategorydetailsComponent } from './admin/categorydetails/categorydetails.component';
 import { CustomerComponent } from './admin/customer/customer.component';
+import { CustomerdetailsComponent } from './admin/customerdetails/customerdetails.component';
+import { UpdatecustomerComponent } from './admin/updatecustomer/updatecustomer.component';
+import { OrderComponent } from './admin/order/order.component';
+import { OrderdetailsComponent } from './admin/orderdetails/orderdetails.component';
 import { AddProductComponent } from './admin/addproduct/addproduct.component';
-import { ProductComponent } from './admin/product/product.component';
 export const routes: Routes = [
   {
     path: '',
     component: SidebarComponent,
-    title: 'side bar',
-  },
-  {
-    path: 'product',
-    component: ProductComponent,
-    title: 'products',
+    title: 'Home page',
   },
   {
     path: 'category',
@@ -28,12 +26,7 @@ export const routes: Routes = [
     title: 'Add Category',
   },
   {
-    path: 'addproduct',
-    component: AddProductComponent,
-    title: 'Add Product',
-  },
-  {
-    path: 'categorydetails',
+    path: 'categorydetails/:id',
     component: CategorydetailsComponent,
     title: 'Category Details',
   },
@@ -41,5 +34,30 @@ export const routes: Routes = [
     path: 'customer',
     component: CustomerComponent,
     title: 'Customer',
+  },
+  {
+    path: 'customerdetails/:id',
+    component: CustomerdetailsComponent,
+    title: 'Customer Details',
+  },
+  {
+    path: 'updatecustomer/:id',
+    component: UpdatecustomerComponent,
+    title: 'Update Customer',
+  },
+  {
+    path: 'order',
+    component: OrderComponent,
+    title: 'Order',
+  },
+  {
+    path: 'orderdetails/:id',
+    component: OrderdetailsComponent,
+    title: 'Order Details',
+  },
+  {
+    path: 'addproduct',
+    component: AddProductComponent,
+    title: 'Add Product',
   },
 ];

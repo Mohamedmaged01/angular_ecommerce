@@ -1,6 +1,6 @@
 <app-navbar></app-navbar>
 <div class="bg-white text-dark">
-  <div class="d-flex flex-row pt-2 links">
+  <div class="d-flex flex-row links pt-2">
     <nav class="">
       <div class="container-fluid position-absolute side">
         <button
@@ -10,70 +10,50 @@
           data-bs-target="#sidebarMenu"
           aria-controls="sidebarMenu"
         >
-          <i class="fa-solid fa-bars"></i>
+          <i class="fa-bars fa-solid"></i>
         </button>
-      </div>
-    </nav>
+            </div>
+        </nav>
 
-    <div class="offcanvas offcanvas-start" tabindex="-1" id="sidebarMenu">
-      <div class="offcanvas-header">
-        <h5 class="offcanvas-title" id="side-signin">El Ro3b Store</h5>
-        <button
-          type="button"
-          class="btn-close text-reset"
-          data-bs-dismiss="offcanvas"
-          aria-label="Close"
-        ></button>
-      </div>
-      <div class="offcanvas-body">
-        <ul class="list-group list-group-flush">
-          <li class="list-group bg-info text-white w-50" style="height: 40px">
-            <span class="text-dark text-center mt-2">Admin Dashboard</span>
-          </li>
-          <li class="list-group">
-            <div class="btn-group dropend mt-3 w-50">
-              <button
-                class="btn btn-outline-info dropdown-toggle"
-                type="button"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
-                <i class="fa-solid fa-bag-shopping mx-2"></i>
+        <div class="offcanvas offcanvas-start" tabindex="-1" id="sidebarMenu">
+            <div class="offcanvas-header">
+                <h5 class="offcanvas-title" id="side-signin">El Ro3b Store</h5>
+                <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group bg-info text-white w-50" style="height: 40px">
+                        <span class="text-center text-dark mt-2">Admin Dashboard</span>
+                    </li>
+                    <li class="list-group">
+                        <div class="btn-group w-50 dropend mt-3">
+                            <button class="btn btn-outline-info dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="fa-bag-shopping fa-solid mx-2"></i>
                 Products
               </button>
-              <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#">Product</a></li>
-                <li><a class="dropdown-item" href="#">Category</a></li>
-              </ul>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#">Product</a></li>
+                                <li><a class="dropdown-item" [routerLink]="'/category'">Category</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="list-group mt-3">
+                        <a [routerLink]="'/order'"><span>
+                          <i class="fa-cart-shopping fa-solid mx-2"></i> Orders
+                          <span class="badge text-bg-danger ms-5">4</span></span>
+                      </a>
+                    </li>
+                    <li class="list-group mt-3">
+                        <a [routerLink]="'/customer'"><span><i class="fa-solid fa-users mx-2"></i>Customers</span></a>
+                    </li>
+                    <li class="list-group mt-3">
+                        <a href="#"><span><i class="fa-solid fa-store mx-2"></i> Sellers</span></a>
+                    </li>
+                    <li class="list-group mt-3">
+                        <a href="#"><span><i class="fa-chart-line fa-solid mx-2"></i> Analytics</span></a>
+                    </li>
+                </ul>
             </div>
-          </li>
-          <li class="list-group mt-3">
-            <a href="#"
-              ><span>
-                <i class="fa-solid fa-cart-shopping mx-2"></i> Orders
-                <span class="badge text-bg-danger ms-5">4</span></span
-              ></a
-            >
-          </li>
-          <li class="list-group mt-3">
-            <a href="#"
-              ><span><i class="fa-solid fa-users mx-2"></i>Customers</span></a
-            >
-          </li>
-          <li class="list-group mt-3">
-            <a href="#"
-              ><span><i class="fa-solid fa-store mx-2"></i> Sellers</span></a
-            >
-          </li>
-          <li class="list-group mt-3">
-            <a href="#"
-              ><span
-                ><i class="fa-solid fa-chart-line mx-2"></i> Analytics</span
-              ></a
-            >
-          </li>
-        </ul>
-      </div>
+        </div>
     </div>
-  </div>
 </div>
