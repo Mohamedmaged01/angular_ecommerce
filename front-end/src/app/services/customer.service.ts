@@ -23,4 +23,15 @@ export class CustomerService {
   deleteCustomer (id: any): Observable<any> {
     return this.http.delete(`${this.API_URL1}/${id}`);
   }
+
+  private API_URL3 = 'http://localhost:3000/users';
+  getCustomerById(id: string): Observable<any> {
+    return this.http.get(`${this.API_URL3}/${id}`);
+  }
+
+  private API_URL2 = 'http://localhost:3000/users';
+  updateCustomer (id: any, customer: any): Observable<any> {
+    return this.http.put(`${this.API_URL2}/${id}`, customer);
+  }
+
 }

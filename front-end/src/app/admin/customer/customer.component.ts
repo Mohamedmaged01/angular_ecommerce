@@ -3,6 +3,7 @@ import { SidebarComponent } from '../sidebar/sidebar.component';
 import { RouterLink } from '@angular/router';
 import { CustomerService } from '../../services/customer.service';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-customer',
@@ -16,14 +17,11 @@ export class CustomerComponent implements OnInit {
   isLoading = false;
   errorMessage: string | null = null;
 
-  constructor(private customerService: CustomerService) { }
+  constructor(private customerService: CustomerService , private router: Router) { }
 
   ngOnInit(): void {
     const token = localStorage.getItem('token');
     console.log('Stored Token:', token);
-    this.loadCustomers();
-  }
-  refreshCategories(): void {
     this.loadCustomers();
   }
   loadCustomers(): void {
@@ -65,5 +63,9 @@ export class CustomerComponent implements OnInit {
         this.isLoading = false;
       }
     });
+  }
+
+  goToCustomerDetails(customer :any){
+    this.router.navigate(['/updatecustomer' , customer._id]);
   }
 }

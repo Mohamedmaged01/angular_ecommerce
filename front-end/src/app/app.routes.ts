@@ -36,12 +36,12 @@ export const routes: Routes = [
         title:'Customer'
     },
     {
-        path:'customerdetails',
+        path:'customerdetails/:id',
         component:CustomerdetailsComponent,
         title:'Customer Details'
     },
     {
-        path:'updatecustomer',
+        path:'updatecustomer/:id',
         component:UpdatecustomerComponent,
         title:'Update Customer'
     },

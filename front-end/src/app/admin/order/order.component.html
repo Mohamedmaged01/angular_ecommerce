@@ -24,7 +24,7 @@
             </tr>
         </thead>
         <tbody>
-            <!-- @for (item of categories; track $index) { -->
+            @for (item of orders; track $index) {
             <tr>
                 <th scope="row">1</th>
                 <td>
@@ -41,22 +41,6 @@
                       </button>
                 </td>
             </tr>
-            <!-- } -->
-            <tr>
-                <th scope="row">1</th>
-                <td>
-                    <img src="" alt=" food " width="50 " height="50 "></td>
-                <td>orange <br> +3 other Product</td>
-                <td>20//5/2025</td>
-                <td>Maged</td>
-                <td>125$</td>
-                <td>card</td>
-                <td>Delived</td>
-                <td>
-                    <button class="btn btn-sm btn-primary" [routerLink]="'/customerdetails'">
-                        <i class="fa fa-eye"></i>
-                      </button>
-                </td>
-            </tr>
+            }
     </table>
 </div>
