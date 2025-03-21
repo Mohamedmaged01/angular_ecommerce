@@ -9,6 +9,10 @@ import { UpdatecustomerComponent } from './admin/updatecustomer/updatecustomer.c
 import { OrderComponent } from './admin/order/order.component';
 import { OrderdetailsComponent } from './admin/orderdetails/orderdetails.component';
 import { AddProductComponent } from './admin/addproduct/addproduct.component';
+import { AllProductsComponent } from './admin/allproducts/allproducts.component';
+import { OneproductComponent } from './admin/oneproduct/oneproduct.component';
+import { DeleteproductComponent } from './admin/deleteproduct/deleteproduct.component';
+import { UpdateproductComponent } from './admin/updateproduct/updateproduct.component';
 export const routes: Routes = [
   {
     path: '',
@@ -55,9 +59,10 @@ export const routes: Routes = [
     component: OrderdetailsComponent,
     title: 'Order Details',
   },
-  {
-    path: 'addproduct',
-    component: AddProductComponent,
-    title: 'Add Product',
-  },
+  
+  { path: 'products', component: AllProductsComponent },
+  { path: 'products/add', component: AddProductComponent },
+  { path: 'products/:id', component: OneproductComponent },
+  { path: 'products/delete/:id', component: DeleteproductComponent },
+  { path: 'products/update/:id', component: UpdateproductComponent },
 ];

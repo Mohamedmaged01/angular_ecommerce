@@ -21,4 +21,11 @@ export class ProductService {
     console.log('🗑 Deleting product ID:', productId);
     return this.http.delete<any>(`${this.apiUrl}/${productId}`);
   }
+  getProductById(id: string): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/${id}`);
+  }
+
+  updateProduct(id: string, product: any): Observable<any> {
+    return this.http.put<any>(`${this.apiUrl}/${id}`, product);
+  }
 }
