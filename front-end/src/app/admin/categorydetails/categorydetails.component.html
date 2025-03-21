@@ -12,7 +12,7 @@
         <div class="d-flex justify-content-between align-items-center mb-4">
             <div>
                 <button class="btn btn-light border" [routerLink]="'/category'">Cancel</button>
-                <button class="btn btn-primary ms-3" *ngIf="!isViewMode">Save Category</button>
+                <button class="btn btn-primary ms-3" *ngIf="!isViewMode" (click)="updateCategory()">Save Category</button>
             </div>
         </div>
     </div>
@@ -24,16 +24,16 @@
 
                 <div class="border rounded p-4 text-center" style="border-style: dashed;">
 
-                    <img *ngIf="isViewMode && category.image" [src]="category.image" class="img-fluid rounded" alt="Category Image">
+                    <img *ngIf="category.image" [src]="category.image" class="img-fluid rounded" alt="Category Image">
 
-                    <i *ngIf="isViewMode && !category.image" class="fa fa-image fa-2x text-secondary"></i>
-                    <p *ngIf="isViewMode && !category.image">No Image Available</p>
-
+                    <i *ngIf="!category.image" class="fa fa-image fa-2x text-secondary"></i>
+                    <p *ngIf="!category.image">No Image Available</p>
+                    <!-- 
                     <ng-container *ngIf="!isViewMode">
                         <i class="fa fa-image fa-2x text-secondary"></i>
                         <p>Drag and drop image here, or click add image</p>
                         <button class="btn btn-light border text-info">Change Image</button>
-                    </ng-container>
+                    </ng-container> -->
                 </div>
             </div>
         </div>

@@ -21,8 +21,10 @@ export class CategoryService {
     return this.http.get<any>(this.API_URL);
   }
   
+
+  API_URL4 = 'http://localhost:3000/createcategory';
   addCategory(categoryData: any): Observable<any> {
-    return this.http.post(this.API_URL, categoryData);
+    return this.http.post(this.API_URL4, categoryData);
   }
 
   API_URL1 = 'http://localhost:3000/deletecategory';
@@ -40,8 +42,8 @@ export class CategoryService {
 
 
   API_URL3 = 'http://localhost:3000/updatecategory';
-  updateCategoryDetails(categoryData: any, categoryId: number): Observable<any> {
-    return this.http.post(`${this.API_URL3}/${categoryId}`, categoryData);
+  updateCategoryDetails(categoryId: any, categoryData: any): Observable<any> {
+    return this.http.put(`${this.API_URL3}/${categoryId}`, categoryData);
   }
   
 }
