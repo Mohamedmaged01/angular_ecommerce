@@ -16,13 +16,7 @@
             "outputPath": "dist/front-end",
             "index": "src/index.html",
             "browser": "src/main.ts",
-<<<<<<< HEAD
-            "polyfills": [
-              "zone.js"
-            ],
-=======
             "polyfills": ["zone.js"],
->>>>>>> 93d6775 (Header Done)
             "tsConfig": "tsconfig.app.json",
             "assets": [
               {
@@ -31,18 +25,12 @@
               }
             ],
             "styles": [
-<<<<<<< HEAD
-              "src/styles.css"
-            ],
-            "scripts": []
-=======
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "src/styles.css"
             ],
             "scripts": [
               "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
             ]
->>>>>>> 93d6775 (Header Done)
           },
           "configurations": {
             "production": {
@@ -86,14 +74,7 @@
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-<<<<<<< HEAD
-            "polyfills": [
-              "zone.js",
-              "zone.js/testing"
-            ],
-=======
             "polyfills": ["zone.js", "zone.js/testing"],
->>>>>>> 93d6775 (Header Done)
             "tsConfig": "tsconfig.spec.json",
             "assets": [
               {
@@ -102,27 +83,18 @@
               }
             ],
             "styles": [
-<<<<<<< HEAD
-              "src/styles.css"
-            ],
-            "scripts": []
-=======
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "src/styles.css"
             ],
             "scripts": [
               "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
             ]
->>>>>>> 93d6775 (Header Done)
           }
         }
       }
     }
-<<<<<<< HEAD
-=======
   },
   "cli": {
     "analytics": "077fa1e2-d087-4a5f-84b0-6f756a911c33"
->>>>>>> 93d6775 (Header Done)
   }
 }
