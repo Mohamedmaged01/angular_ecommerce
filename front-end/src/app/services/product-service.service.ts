@@ -6,12 +6,16 @@ import { HttpHeaders } from '@angular/common/http';
   providedIn: 'root',
 })
 export class ProductService {
-  private apiUrl = 'http://localhost:3000/createproduct';
+ 
   constructor(private http: HttpClient) {}
+
+  private apiUrl1 = 'http://localhost:3000/allproduct';
   getProducts(): Observable<any> {
     console.log('📡 Fetching products from:', this.apiUrl);
-    return this.http.get<any>(this.apiUrl);
+    return this.http.get<any>(this.apiUrl1);
   }
+
+  private apiUrl = 'http://localhost:3000/createproduct';
   addProduct(product: any): Observable<any> {
     const token = localStorage.getItem('token');
 
