@@ -1,6 +1,6 @@
 import { Component ,OnInit} from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import {LoginService} from '../../../userservices/login.service'
+import {LoginService} from '../../userservices/login.service'
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';

@@ -1,7 +1,7 @@
 import { Component ,OnInit } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import {SignupService} from '../../../userservices/signup.service'
+import {SignupService} from '../../userservices/signup.service'
 @Component({
   standalone: true,
   selector: 'app-signup',
