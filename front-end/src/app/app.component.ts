@@ -5,7 +5,7 @@ import { FooterComponent } from './user/footer/footer.component';
 
 @Component({
   selector: 'app-root',
-  imports: [HeaderComponent,FooterComponent],
+  imports: [HeaderComponent,FooterComponent,RouterOutlet],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
