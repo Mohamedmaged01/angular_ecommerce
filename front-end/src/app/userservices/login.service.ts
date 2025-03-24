@@ -49,4 +49,8 @@ export class LoginService {
     }
     return throwError(() => new Error(errorMessage));
   }
+
+  getLoggedInUser() {
+    return JSON.parse(localStorage.getItem('token') || 'null');
+  }
 }

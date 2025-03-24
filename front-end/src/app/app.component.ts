@@ -1,14 +1,34 @@
-import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component, computed, effect, signal } from '@angular/core';
+import { Router, NavigationEnd, RouterOutlet } from '@angular/router';
 import { HeaderComponent } from './user/header/header.component';
 import { FooterComponent } from './user/footer/footer.component';
+import { LoginService } from './userservices/login.service'; 
 
 @Component({
   selector: 'app-root',
-  imports: [HeaderComponent,FooterComponent,RouterOutlet],
+  imports: [HeaderComponent, FooterComponent, RouterOutlet],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrls: ['./app.component.css'],
+  standalone: true
 })
 export class AppComponent {
-  title = 'front-end';
+  isAuthorized = false;
+
+  ngOnInit(): void {
+    this.checkUserAuthorization();
+  }
+
+  checkUserAuthorization(): void {
+    const token = localStorage.getItem('token'); // Replace with your token key
+    if (token) {
+      try {
+        const payload = JSON.parse(atob(token.split('.')[1])); // Decode JWT
+        if (payload.email === 'mostafamokna78@gmail.com') {
+          this.isAuthorized = true;
+        }
+      } catch (error) {
+        console.error('Invalid token format', error);
+      }
+    }
+  }
 }

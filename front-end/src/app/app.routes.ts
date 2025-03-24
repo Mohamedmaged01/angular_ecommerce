@@ -59,9 +59,6 @@ export const routes: Routes = [
         title:'Cart'
     },
 
-    { path: 'flash-sales', component: FlashSalesComponent },
-    { path: 'products', component: ProductListComponent },
-    { path: 'products/:id', component: ProductDetailsComponent },
     {
       path: 'admin',
       component: SidebarComponent,
@@ -107,18 +104,17 @@ export const routes: Routes = [
       component: OrderdetailsComponent,
       title: 'Order Details',
     },
-    
-    { path: 'products', component: AllProductsComponent },
-    { path: 'products/add', component: AddProductComponent },
-    { path: 'products/:id', component: OneproductComponent },
-    { path: 'products/delete/:id', component: DeleteproductComponent },
-    { path: 'products/update/:id', component: UpdateproductComponent },
+    { path: '', component: HomeComponent },
+    { path: 'flash-sales', component: FlashSalesComponent },
+    { path: 'userproducts', component: ProductListComponent },
+    { path: 'userproducts/:id', component: ProductDetailsComponent }
 ];
 
+
 @NgModule({
-    imports: [RouterModule.forRoot(routes)],
-    exports: [RouterModule]
-  })
-  export class AppRoutingModule { }
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
+})
+export class AppRoutingModule { }
 
 

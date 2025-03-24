@@ -54,7 +54,11 @@ export class LoginComponent implements OnInit{
           this.isSubmitting = false;
           this.successMessage = 'Login successful!';
           this.loginForm.reset();
-          this.router.navigate(['/wishlist']); 
+          if (loginData.email === 'mostafamokna78@gmail.com') {
+            this.router.navigate(['/admin']);
+          } else {
+            this.router.navigate(['/home']);
+          }
           console.log('Login response:', response);
         
         },
