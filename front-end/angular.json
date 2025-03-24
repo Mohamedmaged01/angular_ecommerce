@@ -81,8 +81,6 @@
                         }],
                         "styles": [
                             "node_modules/bootstrap/dist/css/bootstrap.min.css",
-                            "node_modules/slick-carousel/slick/slick.css",
-                            "node_modules/slick-carousel/slick/slick-theme.css",
                             "src/styles.css"
                         ],
                         "scripts": [
@@ -96,4 +94,4 @@
     "cli": {
         "analytics": "077fa1e2-d087-4a5f-84b0-6f756a911c33"
     }
-}
+} 
