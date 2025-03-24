@@ -24,6 +24,8 @@
                         }],
                         "styles": [
                             "node_modules/bootstrap/dist/css/bootstrap.min.css",
+                            "node_modules/slick-carousel/slick/slick.css",
+                            "node_modules/slick-carousel/slick/slick-theme.css",
                             "src/styles.css"
                         ],
                         "scripts": [
@@ -79,6 +81,8 @@
                         }],
                         "styles": [
                             "node_modules/bootstrap/dist/css/bootstrap.min.css",
+                            "node_modules/slick-carousel/slick/slick.css",
+                            "node_modules/slick-carousel/slick/slick-theme.css",
                             "src/styles.css"
                         ],
                         "scripts": [
