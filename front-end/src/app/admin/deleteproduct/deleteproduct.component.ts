@@ -20,7 +20,7 @@ export class DeleteproductComponent {
     }
 
     if (confirm('Are you sure you want to delete this product?')) {
-      this.productService.deleteProduct(Number(this.productId)).subscribe({
+      this.productService.deleteProduct(this.productId).subscribe({
         next: (response) => {
           console.log('🗑 Product deleted:', response);
           alert('Product deleted successfully.');

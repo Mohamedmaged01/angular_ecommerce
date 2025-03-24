@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { SidebarComponent } from '../sidebar/sidebar.component';
 import { RouterModule } from '@angular/router';
+import { ConfirmDialogComponent } from '../../confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-product',
@@ -17,6 +18,7 @@ export class ProductComponent implements OnInit {
   products: any[] = [];
   filteredProducts: any[] = [];
   searchQuery: string = '';
+  dialog: any;
 
   constructor(
     @Inject(ProductService) private productService: ProductService,
@@ -32,8 +34,8 @@ export class ProductComponent implements OnInit {
       (data) => {
         this.products = data.products;
         this.filteredProducts = this.products;
-        console.log(this.filteredProducts)
-        console.log(this.products)
+        console.log(this.filteredProducts);
+        console.log(this.products);
       },
       (error) => {
         console.error('Error fetching products:', error);
@@ -51,17 +53,31 @@ export class ProductComponent implements OnInit {
     }
   }
 
-  deleteProduct(id: number): void {
-    if (confirm('Are you sure you want to delete this product?')) {
-      this.productService.deleteProduct(id).subscribe(
-        () => {
-          this.products = this.products.filter((product) => product.id !== id);
-          this.filteredProducts = this.products;
-        },
-        (error) => {
-          console.error('Error deleting product:', error);
-        }
-      );
+  deleteProduct(productId: string, productName: string): void {
+    if (!productId) {
+      console.error('❌ Cannot delete - invalid product ID:', productId);
+      return;
     }
+
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      data: {
+        title: 'Confirm Delete',
+        message: `Are you sure you want to delete ${productName}?`,
+      },
+    });
+
+    dialogRef.afterClosed().subscribe((confirmed: any) => {
+      if (confirmed) {
+        this.productService.deleteProduct(productId).subscribe({
+          next: () => {
+            console.log('✅ Product deleted successfully');
+            this.fetchProducts();
+          },
+          error: (err) => {
+            console.error('❌ Delete failed:', err);
+          },
+        });
+      }
+    });
   }
 }

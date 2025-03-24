@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { catchError, Observable, throwError } from 'rxjs';
 import { HttpHeaders } from '@angular/common/http';
 @Injectable({
   providedIn: 'root',
 })
 export class ProductService {
- 
   constructor(private http: HttpClient) {}
 
   private apiUrl1 = 'http://localhost:3000/allproduct';
@@ -21,9 +20,20 @@ export class ProductService {
 
     return this.http.post<any>(this.apiUrl, product);
   }
-  deleteProduct(productId: number): Observable<any> {
-    console.log('🗑 Deleting product ID:', productId);
-    return this.http.delete<any>(`${this.apiUrl}/${productId}`);
+  deleteProduct(productId: string): Observable<any> {
+    if (!productId) {
+      return throwError(() => new Error('Invalid product ID'));
+    }
+
+    const deleteUrl = `http://localhost:3000/deleteproduct/${productId}`;
+    console.log('📡 Sending DELETE request to:', deleteUrl);
+
+    return this.http.delete<any>(deleteUrl).pipe(
+      catchError((error) => {
+        console.error('❌ API Error:', error);
+        return throwError(() => error);
+      })
+    );
   }
   getProductById(id: string): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/${id}`);
