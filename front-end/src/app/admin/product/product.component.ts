@@ -31,7 +31,9 @@ export class ProductComponent implements OnInit {
     this.productService.getProducts().subscribe(
       (data) => {
         this.products = data.products;
-        this.filteredProducts = this.products; // Initialize filtered products
+        this.filteredProducts = this.products;
+        console.log(this.filteredProducts)
+        console.log(this.products)
       },
       (error) => {
         console.error('Error fetching products:', error);

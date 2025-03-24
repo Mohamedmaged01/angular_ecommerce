@@ -25,10 +25,11 @@ import { AllProductsComponent } from './admin/allproducts/allproducts.component'
 import { OneproductComponent } from './admin/oneproduct/oneproduct.component';
 import { DeleteproductComponent } from './admin/deleteproduct/deleteproduct.component';
 import { UpdateproductComponent } from './admin/updateproduct/updateproduct.component';
+import { ProductComponent } from './admin/product/product.component';
 
 export const routes: Routes = [
     { path: 'signup', component: SignupComponent }, 
-    { path: '', redirectTo: '/home', pathMatch: 'full' },
+    { path: '', redirectTo: '/login', pathMatch: 'full' },
     { path: 'login', component: LoginComponent },
     { path: 'home', component: HomeComponent },
     { path: 'callback', component: CallbackComponent }
@@ -99,6 +100,11 @@ export const routes: Routes = [
       component: OrderComponent,
       title: 'Order',
     },
+    { path: 'adminproducts', component: ProductComponent },
+    { path: 'adminproducts/add', component: AddProductComponent },
+    { path: 'adminproducts/:id', component: OneproductComponent },
+    { path: 'adminproducts/delete/:id', component: DeleteproductComponent },
+    { path: 'adminproducts/update/:id', component: UpdateproductComponent },
     {
       path: 'orderdetails/:id',
       component: OrderdetailsComponent,

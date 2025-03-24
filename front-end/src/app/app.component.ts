@@ -19,10 +19,10 @@ export class AppComponent {
   }
 
   checkUserAuthorization(): void {
-    const token = localStorage.getItem('token'); // Replace with your token key
+    const token = localStorage.getItem('token'); 
     if (token) {
       try {
-        const payload = JSON.parse(atob(token.split('.')[1])); // Decode JWT
+        const payload = JSON.parse(atob(token.split('.')[1]));
         if (payload.email === 'mostafamokna78@gmail.com') {
           this.isAuthorized = true;
         }
