@@ -1,0 +1,13 @@
+a {
+  text-decoration: none;
+  color: #333;
+}
+
+a:hover {
+  color: aqua;
+}
+.side {
+  position: absolute;
+  top: 10px;
+  left: 200px;
+}
