@@ -28,7 +28,7 @@
             <div class="product-details">
                 <p class="product-price">${{ product.price.toFixed(2) }}</p>
                 <p class="product-description">{{ product.description }}</p>
-                <p class="product-category">Category: {{ product.category }}</p>
+                <p class="product-category">Category:</p>
                 <p class="product-availability" [ngClass]="{'available': product.isAvailble, 'unavailable': !product.isAvailble}">
                     {{ product.isAvailble ? 'In Stock' : 'Out of Stock' }}
                 </p>
