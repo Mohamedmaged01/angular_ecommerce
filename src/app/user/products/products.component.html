@@ -1,0 +1,40 @@
+<div class="container my-5">
+  <div *ngIf="isLoading" class="text-center py-5">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+    <p class="mt-2">Loading products...</p>
+  </div>
+
+  <div *ngIf="!isLoading">
+    <div *ngIf="showMode === 'single' && currentProduct" class="row justify-content-center">
+      <div class="col-md-8 col-lg-6">
+        <app-product-card [product]="currentProduct" class="mb-4"></app-product-card>
+      </div>
+    </div>
+
+    <div *ngIf="showMode === 'category'">
+      <h2 class="categoryText text-center mb-4">Products in Category</h2>
+      <div *ngIf="filteredProducts.length > 0; else noCategoryProducts" class="row row-cols-1 row-cols-md-3 row-cols-lg-4 g-4">
+        <div class="col" *ngFor="let product of filteredProducts">
+          <app-product-card [product]="product"></app-product-card>
+        </div>
+      </div>
+      <ng-template #noCategoryProducts>
+        <div class="alert alert-info text-center">No products found in this category.</div>
+      </ng-template>
+    </div>
+
+    <div *ngIf="showMode === 'all'">
+      <h2 class="allProductText text-center mb-4">All Products</h2>
+      <div *ngIf="allProducts.length > 0; else noProducts" class="row row-cols-1 row-cols-md-3 row-cols-lg-4 g-4">
+        <div class="col" *ngFor="let product of allProducts">
+          <app-product-card [product]="product"></app-product-card>
+        </div>
+      </div>
+      <ng-template #noProducts>
+        <div class="alert alert-info text-center">No products available.</div>
+      </ng-template>
+    </div>
+  </div>
+</div>
