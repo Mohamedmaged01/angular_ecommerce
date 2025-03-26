@@ -14,12 +14,22 @@ import { RouterModule } from '@angular/router';
 export class ProductCardComponent {
   constructor(private router: Router){
   }
-  
+
   Math = Math;
 
   @Input() product: any;
+  @Input() searchQuery: string = '';
 
   ngOnInit() {
     console.log("Product Data:", this.product);
+  }
+
+  highlightText(text: string): string {
+    if (!this.searchQuery || !text) return text;
+
+    const regex = new RegExp(this.searchQuery, 'gi');
+    return text.replace(regex, match =>
+      `<span class="search-highlight">${match}</span>`
+    );
   }
 }

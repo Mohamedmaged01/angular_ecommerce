@@ -1,4 +1,5 @@
 <div class="container my-5">
+  <!-- Loading Indicator -->
   <div *ngIf="isLoading" class="text-center py-5">
     <div class="spinner-border text-primary" role="status">
       <span class="visually-hidden">Loading...</span>
@@ -7,34 +8,133 @@
   </div>
 
   <div *ngIf="!isLoading">
-    <div *ngIf="showMode === 'single' && currentProduct" class="row justify-content-center">
-      <div class="col-md-8 col-lg-6">
-        <app-product-card [product]="currentProduct" class="mb-4"></app-product-card>
+    <!-- Search Section -->
+    <div class="search-container mb-4">
+      <div class="position-relative">
+        <input
+          type="text"
+          class="form-control search-input"
+          [(ngModel)]="searchQuery"
+          (input)="onSearchInput()"
+          placeholder="Search by product name, category, or ID"
+          name="searchInput"
+        />
+
+        <div *ngIf="isLoading" class="search-spinner">
+          <div class="spinner-border spinner-border-sm text-primary"></div>
+        </div>
+
+        <button *ngIf="searchQuery" class="clear-btn" (click)="clearSearch()">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+
+      <!-- Suggestions Dropdown -->
+      <div
+        *ngIf="showSuggestions && suggestions.length > 0"
+        class="suggestions-dropdown"
+      >
+        <div
+          *ngFor="let item of suggestions"
+          class="suggestion-item"
+          (click)="selectSuggestion(item)"
+        >
+          <div class="suggestion-name">{{ item.name }}</div>
+          <div class="suggestion-details">
+            <span class="badge bg-secondary me-2">{{
+              item.category?.name
+            }}</span>
+            <small class="text-muted">ID: {{ item._id }}</small>
+          </div>
+        </div>
       </div>
     </div>
 
-    <div *ngIf="showMode === 'category'">
-      <h2 class="categoryText text-center mb-4">Products in Category</h2>
-      <div *ngIf="filteredProducts.length > 0; else noCategoryProducts" class="row row-cols-1 row-cols-md-3 row-cols-lg-4 g-4">
-        <div class="col" *ngFor="let product of filteredProducts">
-          <app-product-card [product]="product"></app-product-card>
+    <!-- Search Results View -->
+    <div *ngIf="searchExecuted">
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="searchResultsText mb-0">
+          {{ searchNotFound ? "Suggestions for" : "Results for" }} "{{
+            searchQuery
+          }}"
+        </h2>
+        <button class="btn btn-outline-secondary" (click)="clearSearch()">
+          <i class="fas fa-times me-2"></i> Clear Search
+        </button>
+      </div>
+
+      <div *ngIf="searchNotFound" class="alert alert-info mb-4">
+        <i class="fas fa-info-circle me-2"></i>
+        No exact matches found. Showing similar products.
+      </div>
+
+      <div class="row row-cols-1 row-cols-md-3 row-cols-lg-4 g-4">
+        <div
+          class="col"
+          *ngFor="let product of allProducts; trackBy: trackByProductId"
+        >
+          <app-product-card
+            [product]="product"
+            [searchQuery]="searchQuery"
+          ></app-product-card>
         </div>
       </div>
-      <ng-template #noCategoryProducts>
-        <div class="alert alert-info text-center">No products found in this category.</div>
-      </ng-template>
     </div>
 
-    <div *ngIf="showMode === 'all'">
-      <h2 class="allProductText text-center mb-4">All Products</h2>
-      <div *ngIf="allProducts.length > 0; else noProducts" class="row row-cols-1 row-cols-md-3 row-cols-lg-4 g-4">
-        <div class="col" *ngFor="let product of allProducts">
-          <app-product-card [product]="product"></app-product-card>
+    <!-- Default Products View -->
+    <div *ngIf="!searchExecuted">
+      <!-- Single Product View -->
+      <div
+        *ngIf="showMode === 'single' && currentProduct"
+        class="row justify-content-center"
+      >
+        <div class="col-md-8 col-lg-6">
+          <app-product-card
+            [product]="currentProduct"
+            class="mb-4"
+          ></app-product-card>
         </div>
       </div>
-      <ng-template #noProducts>
-        <div class="alert alert-info text-center">No products available.</div>
-      </ng-template>
+
+      <!-- Category Products View -->
+      <div *ngIf="showMode === 'category'">
+        <h2 class="categoryText text-center mb-4">Products in Category</h2>
+        <div
+          *ngIf="filteredProducts.length > 0; else noCategoryProducts"
+          class="row row-cols-1 row-cols-md-3 row-cols-lg-4 g-4"
+        >
+          <div
+            class="col"
+            *ngFor="let product of filteredProducts; trackBy: trackByProductId"
+          >
+            <app-product-card [product]="product"></app-product-card>
+          </div>
+        </div>
+        <ng-template #noCategoryProducts>
+          <div class="alert alert-info text-center">
+            No products found in this category.
+          </div>
+        </ng-template>
+      </div>
+
+      <!-- All Products View -->
+      <div *ngIf="showMode === 'all'">
+        <h2 class="allProductText text-center mb-4">All Products</h2>
+        <div
+          *ngIf="allProducts.length > 0; else noProducts"
+          class="row row-cols-1 row-cols-md-3 row-cols-lg-4 g-4"
+        >
+          <div
+            class="col"
+            *ngFor="let product of allProducts; trackBy: trackByProductId"
+          >
+            <app-product-card [product]="product"></app-product-card>
+          </div>
+        </div>
+        <ng-template #noProducts>
+          <div class="alert alert-info text-center">No products available.</div>
+        </ng-template>
+      </div>
     </div>
   </div>
 </div>

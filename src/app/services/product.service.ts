@@ -1,13 +1,14 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
-import { map, tap, catchError } from 'rxjs/operators';
+import { Observable, of, throwError } from 'rxjs';
+import { map, tap, catchError, debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProductService {
   private apiUrl = 'http://localhost:3000';
+  private allProducts: any[] = [];
 
   constructor(private http: HttpClient) {}
 
@@ -16,42 +17,103 @@ export class ProductService {
     let headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
     if (token) {
-      headers = headers.set('token', `${token}`);
+      headers = headers.set('Authorization', `Bearer ${token}`);
     }
     return headers;
   }
 
+  loadAllProducts(): Observable<any[]> {
+    return this.http
+      .get<{ message: string; data: any[] }>(`${this.apiUrl}/products`, {
+        headers: this.getAuthHeaders(),
+      })
+      .pipe(
+        map((response) => {
+          this.allProducts = response.data;
+          return response.data;
+        }),
+        catchError(() => of([]))
+      );
+  }
+
   getProducts(): Observable<any[]> {
-    return this.http.get<{ message: string; data: any[] }>(`${this.apiUrl}/products`, {
-      headers: this.getAuthHeaders()
-    }).pipe(
-      map(response => response.data),
-      catchError(() => of([]))
+    if (this.allProducts.length > 0) {
+      return of(this.allProducts);
+    }
+    return this.loadAllProducts();
+  }
+
+  instantSearch(query: string): Observable<any[]> {
+    if (!query.trim()) {
+      return of([]);
+    }
+
+    if (/^[0-9a-fA-F]{24}$/.test(query)) {
+      return this.searchById(query).pipe(
+        map(product => product ? [product] : [])
+      );
+    }
+
+    return this.searchProducts(query).pipe(
+      map(response => response.data)
     );
   }
 
   getProductById(id: string): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}/products/${id}`, {
-      headers: this.getAuthHeaders()
-    }).pipe(
-      catchError(() => of(null))
-    );
+    return this.searchById(id);
   }
 
   getProductsByCategory(categoryId: string): Observable<any> {
     if (!categoryId) return of([]);
 
-    console.log('Requesting products for category:', categoryId);
-
-    return this.http.get<any>(`${this.apiUrl}/getproductsbycategory/${categoryId}`, {
-      headers: this.getAuthHeaders()
-    }).pipe(
-      tap(response => console.log('API Response:', response)),
-      map(response => response.data || response),
-      catchError(error => {
-        console.error('API Error:', error); 
-        return of([]);
+    return this.http
+      .get<any>(`${this.apiUrl}/getproductsbycategory/${categoryId}`, {
+        headers: this.getAuthHeaders(),
       })
+      .pipe(
+        map((response) => response.data || response),
+        catchError((error) => {
+          console.error('API Error:', error);
+          return of([]);
+        })
+      );
+  }
+
+  searchProducts(query: string): Observable<{ data: any[], isPartialMatch: boolean }> {
+    const encodedQuery = encodeURIComponent(query);
+    return this.http
+      .get<any>(`${this.apiUrl}/search?q=${encodedQuery}`, {
+        headers: this.getAuthHeaders(),
+      })
+      .pipe(
+        map((response) => {
+          if (!response.data || response.data.length === 0) {
+            return { data: this.localSearch(query), isPartialMatch: true };
+          }
+          return { data: response.data, isPartialMatch: false };
+        }),
+        catchError((error) => {
+          console.error('Search API error:', error);
+          return of({ data: this.localSearch(query), isPartialMatch: true });
+        })
+      );
+  }
+
+  private searchById(id: string): Observable<any> {
+    if (!id) return of(null);
+    return this.http
+      .get<any>(`${this.apiUrl}/products/${id}`, {
+        headers: this.getAuthHeaders(),
+      })
+      .pipe(catchError(() => of(null)));
+  }
+
+  private localSearch(query: string): any[] {
+    const lowerQuery = query.toLowerCase();
+    return this.allProducts.filter((product) =>
+      product.name?.toLowerCase().includes(lowerQuery) ||
+      product.category?.name?.toLowerCase().includes(lowerQuery) ||
+      product._id?.toLowerCase().includes(lowerQuery)
     );
   }
 }

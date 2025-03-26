@@ -83,63 +83,99 @@
         </li>
       </ul>
 
-      <form class="d-none d-lg-flex me-3">
+      <!-- Search Form for Desktop -->
+      <div class="d-none d-lg-flex me-3">
         <div class="input-group">
           <input
             type="text"
             class="form-control"
+            [(ngModel)]="searchQuery"
+            (keyup.enter)="searchProducts($event)"
+            (input)="onSearchInput()"
+            name="desktopSearch"
             placeholder="What are you looking for?"
           />
-          <span class="input-group-text"
-            ><i class="fa-solid fa-magnifying-glass"></i
-          ></span>
+          <button
+            *ngIf="searchQuery"
+            class="btn btn-outline-secondary"
+            type="button"
+            (click)="clearSearch()"
+          >
+            <i class="fas fa-times"></i>
+          </button>
+          <button
+            class="btn btn-outline-secondary"
+            type="button"
+            (click)="searchProducts($event)"
+          >
+            <i class="fa-solid fa-magnifying-glass"></i>
+          </button>
         </div>
-      </form>
+      </div>
 
       <div class="d-flex align-items-center">
+        <!-- Mobile Search Toggle -->
         <button
           class="btn btn-outline-dark d-lg-none ms-2 me-3"
-          data-bs-toggle="offcanvas"
-          data-bs-target="#searchOffcanvas"
+          (click)="toggleMobileSearch()"
+          type="button"
         >
           <i class="fa-solid fa-magnifying-glass"></i>
         </button>
 
-        <a routerLink="/wishlist" class="text-dark me-3 fs-5"
-          ><i class="fa-regular fa-heart"></i
-        ></a>
-        <a routerLink="/cart" class="text-dark fs-5"
-          ><i class="fa-solid fa-cart-shopping"></i
-        ></a>
-        <button class="btn btn-dark ms-3" (click)="logout()">
-          Logout
-        </button>
+        <a routerLink="/wishlist" class="text-dark me-3 fs-5">
+          <i class="fa-regular fa-heart"></i>
+        </a>
+        <a routerLink="/cart" class="text-dark fs-5">
+          <i class="fa-solid fa-cart-shopping"></i>
+        </a>
+        <button class="btn btn-dark ms-3" (click)="logout()">Logout</button>
       </div>
     </div>
   </div>
 </nav>
 
-<div class="offcanvas offcanvas-top" tabindex="-1" id="searchOffcanvas">
+<!-- Mobile Search Offcanvas -->
+<div
+  class="offcanvas offcanvas-top"
+  tabindex="-1"
+  id="mobileSearchOffcanvas"
+  aria-labelledby="mobileSearchOffcanvasLabel"
+>
   <div class="offcanvas-header">
-    <h5 class="offcanvas-title">Search</h5>
+    <h5 class="offcanvas-title" id="mobileSearchOffcanvasLabel">Search</h5>
     <button
       type="button"
       class="btn-close"
       data-bs-dismiss="offcanvas"
+      aria-label="Close"
     ></button>
   </div>
   <div class="offcanvas-body">
-    <form>
-      <div class="input-group">
-        <input
-          type="text"
-          class="form-control"
-          placeholder="What are you looking for?"
-        />
-        <button class="btn btn-dark">
-          <i class="fa-solid fa-magnifying-glass"></i>
-        </button>
-      </div>
-    </form>
+    <div class="input-group">
+      <input
+        type="text"
+        class="form-control"
+        [(ngModel)]="searchQuery"
+        (input)="onSearchInput()"
+        name="mobileSearch"
+        placeholder="What are you looking for?"
+      />
+      <button
+        *ngIf="searchQuery"
+        class="btn btn-outline-secondary"
+        type="button"
+        (click)="clearSearch()"
+      >
+        <i class="fas fa-times"></i>
+      </button>
+      <button
+        class="btn btn-dark"
+        type="button"
+        (click)="searchProducts($event)"
+      >
+        <i class="fa-solid fa-magnifying-glass"></i>
+      </button>
+    </div>
   </div>
 </div>

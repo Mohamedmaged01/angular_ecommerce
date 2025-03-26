@@ -16,6 +16,12 @@
 
 a:hover, .input-group i:hover {
   color: #c54452 !important;
+  cursor: pointer;
+}
+
+.btn-outline-secondary:hover {
+  background-color: #f8f8f8 !important;
+  color: #c54452;
 }
 
 .btn-dark:hover, .btn-outline-dark:hover{
@@ -77,3 +83,4 @@ a:hover, .input-group i:hover {
 .offcanvas {
   z-index: 5;
 }
+
