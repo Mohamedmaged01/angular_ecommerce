@@ -27,7 +27,7 @@ import { DeleteproductComponent } from './admin/deleteproduct/deleteproduct.comp
 import { UpdateproductComponent } from './admin/updateproduct/updateproduct.component';
 import { ProductComponent } from './admin/product/product.component';
 import { AdminHomeComponent } from './admin/admin-home/admin-home.component';
-
+import { AuthGuard } from './gaurds/auth.guard';
 export const routes: Routes = [
   { path: 'signup', component: SignupComponent },
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -60,16 +60,11 @@ export const routes: Routes = [
     component: CartComponent,
     title: 'Cart',
   },
-
-  {
-    path: 'admin',
-    component: SidebarComponent,
-    title: 'Home page',
-  },
   {
     path: 'adminHome',
     component: AdminHomeComponent,
     title: 'admin Home page',
+    canActivate: [AuthGuard],
   },
   {
     path: 'category',
