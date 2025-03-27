@@ -1,10 +1,17 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ViewChild,
+  ElementRef,
+  AfterViewInit,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProductService } from '../../services/product-service.service';
 import { Router } from '@angular/router';
 import { ConfirmDialogComponent } from '../../confirm-dialog/confirm-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
+import { Modal } from 'bootstrap';
 
 @Component({
   selector: 'app-all-products',
@@ -13,7 +20,12 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './allproducts.component.html',
   styleUrls: ['./allproducts.component.css'],
 })
-export class AllProductsComponent implements OnInit {
+export class AllProductsComponent implements OnInit, AfterViewInit {
+  @ViewChild('addProductModal') addModalElement!: ElementRef;
+  @ViewChild('editProductModal') editModalElement!: ElementRef;
+  @ViewChild('addForm') addForm!: NgForm;
+  @ViewChild('editForm') editForm!: NgForm;
+
   products: any[] = [];
   filteredProducts: any[] = [];
   paginatedProducts: any[] = [];
@@ -31,8 +43,34 @@ export class AllProductsComponent implements OnInit {
   stockStatus: string = '';
   categories: string[] = [];
 
+  // Modal instances
+  addModal!: Modal;
+  editModal!: Modal;
+
+  // Product models
+  newProduct: any = {
+    name: '',
+    price: 0,
+    stock: 0,
+    category: '',
+    description: '',
+  };
+
+  selectedProduct: any = {
+    _id: '',
+    name: '',
+    price: 0,
+    stock: 0,
+    categoryDisplay: '',
+    description: '',
+  };
+
+  // Loading states
+  isAdding: boolean = false;
+  isUpdating: boolean = false;
+
   constructor(
-    @Inject(ProductService) private productService: ProductService,
+    private productService: ProductService,
     private router: Router,
     private dialog: MatDialog
   ) {}
@@ -41,59 +79,51 @@ export class AllProductsComponent implements OnInit {
     this.fetchProducts();
   }
 
+  ngAfterViewInit(): void {
+    this.addModal = new Modal(this.addModalElement.nativeElement);
+    this.editModal = new Modal(this.editModalElement.nativeElement);
+  }
+
   fetchProducts(): void {
     this.productService.getProducts().subscribe(
       (response) => {
-        console.log('📦 Products fetched successfully:', response);
-        this.products = response.map(
-          (product: { category: any; [key: string]: any }) => ({
-            ...product,
-            categoryDisplay: this.getCategoryName(product.category),
-          })
-        );
+        this.products = response.map((product: any) => ({
+          ...product,
+          categoryDisplay: this.getCategoryName(product.category),
+        }));
         this.categories = [
           ...new Set(this.products.map((p) => p.categoryDisplay)),
         ];
         this.applyFilters();
       },
       (error) => {
-        console.error('❌ Error fetching products:', error);
+        console.error('Error fetching products:', error);
       }
     );
   }
 
   private getCategoryName(category: any): string {
-    // Handle different category formats:
-    // If category is an object with name property
     if (category && typeof category === 'object' && 'name' in category) {
       return category.name;
     }
-    // If category is already a string
     if (typeof category === 'string') {
       return category;
     }
-    // Default case
     return 'Uncategorized';
   }
 
   applyFilters(): void {
     this.filteredProducts = this.products.filter((product) => {
-      // Search by name
       const matchesSearch =
         !this.searchTerm ||
         product.name.toLowerCase().includes(this.searchTerm.toLowerCase());
-
-      // Filter by category name
       const matchesCategory =
         !this.filterCategory || product.categoryDisplay === this.filterCategory;
-
-      // Filter by price range
       const matchesPriceRange =
         (this.priceRange.min === null ||
           product.price >= this.priceRange.min) &&
         (this.priceRange.max === null || product.price <= this.priceRange.max);
 
-      // Filter by stock status
       let matchesStockStatus = true;
       if (this.stockStatus === 'low') {
         matchesStockStatus = product.stock < 5;
@@ -170,20 +200,89 @@ export class AllProductsComponent implements OnInit {
     }
   }
 
-  navigateToAddProduct(): void {
-    this.router.navigate(['/add-product']);
+  // Modal methods
+  openAddModal(): void {
+    this.resetNewProduct();
+    this.addModal.show();
   }
 
-  editProduct(productId: number): void {
-    this.router.navigate(['/edit-product', productId]);
+  closeAddModal(): void {
+    this.addModal.hide();
+    this.addForm.resetForm();
+  }
+
+  openEditModal(product: any): void {
+    this.selectedProduct = {
+      _id: product._id,
+      name: product.name,
+      price: product.price,
+      stock: product.stock,
+      categoryDisplay: product.categoryDisplay,
+      description: product.description || '',
+    };
+    this.editModal.show();
+  }
+
+  closeEditModal(): void {
+    this.editModal.hide();
+    this.editForm.resetForm();
+  }
+
+  resetNewProduct(): void {
+    this.newProduct = {
+      name: '',
+      price: 0,
+      stock: 0,
+      category: this.categories.length > 0 ? this.categories[0] : '',
+      description: '',
+    };
+  }
+
+  addProduct(): void {
+    if (this.addForm.invalid) return;
+
+    this.isAdding = true;
+    this.productService.addProduct(this.newProduct).subscribe({
+      next: (response) => {
+        this.isAdding = false;
+        this.addModal.hide();
+        this.fetchProducts();
+      },
+      error: (error) => {
+        this.isAdding = false;
+        console.error('Error adding product', error);
+      },
+    });
+  }
+
+  updateProduct(): void {
+    if (this.editForm.invalid) return;
+
+    this.isUpdating = true;
+    const productData = {
+      name: this.selectedProduct.name,
+      price: this.selectedProduct.price,
+      stock: this.selectedProduct.stock,
+      category: this.selectedProduct.categoryDisplay,
+      description: this.selectedProduct.description,
+    };
+
+    this.productService
+      .updateProduct(this.selectedProduct._id, productData)
+      .subscribe({
+        next: (response) => {
+          this.isUpdating = false;
+          this.editModal.hide();
+          this.fetchProducts();
+        },
+        error: (error) => {
+          this.isUpdating = false;
+          console.error('Error updating product', error);
+        },
+      });
   }
 
   deleteProduct(productId: string, productName: string): void {
-    if (!productId) {
-      console.error('❌ Cannot delete - invalid product ID:', productId);
-      return;
-    }
-
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       data: {
         title: 'Confirm Delete',
@@ -195,11 +294,10 @@ export class AllProductsComponent implements OnInit {
       if (confirmed) {
         this.productService.deleteProduct(productId).subscribe({
           next: () => {
-            console.log('✅ Product deleted successfully');
             this.fetchProducts();
           },
           error: (err) => {
-            console.error('❌ Delete failed:', err);
+            console.error('Delete failed:', err);
           },
         });
       }

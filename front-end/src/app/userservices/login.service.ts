@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import { catchError, tap } from 'rxjs/operators';
+import { catchError } from 'rxjs/operators';
 
 export interface LoginData {
   email: string;
@@ -13,44 +13,22 @@ export interface LoginData {
 })
 export class LoginService {
   private url: string = 'http://localhost:3000/login'; 
-  private googleAuthUrl: string = 'http://localhost:3000/auth/google';
 
   constructor(private http: HttpClient) {}
 
   login(data: LoginData): Observable<any> {
-    return this.http.post<{ token: string }>(this.url, data).pipe(
-      tap(response => {
-        if (response.token) {
-          localStorage.setItem('token', response.token);
-        }
-      }),
+    return this.http.post(this.url, data).pipe(
       catchError(this.handleError)
     );
-  }
-
-  googleLogin(): void {
-    window.location.href = this.googleAuthUrl;
-  }
-
-  getToken(): string | null {
-    return localStorage.getItem('token'); 
-  }
-
-  logout(): void {
-    localStorage.removeItem('token');
   }
 
   private handleError(error: HttpErrorResponse): Observable<never> {
     let errorMessage = 'An unknown error occurred';
     if (error.error instanceof ErrorEvent) {
-      errorMessage = `Error: invalid password or email`;
+      errorMessage = 'A client-side error occurred';
     } else {
-      errorMessage = `Error: invalid password or email`;
+      errorMessage = error.error.message || 'Login failed. Please try again.';
     }
     return throwError(() => new Error(errorMessage));
-  }
-
-  getLoggedInUser() {
-    return JSON.parse(localStorage.getItem('token') || 'null');
   }
 }

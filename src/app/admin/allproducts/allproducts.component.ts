@@ -4,20 +4,31 @@ import { ProductService } from '../../services/product-service.service';
 import { Router } from '@angular/router';
 import { ConfirmDialogComponent } from '../../confirm-dialog/confirm-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
-
+import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-all-products',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule, ],
   templateUrl: './allproducts.component.html',
   styleUrls: ['./allproducts.component.css'],
 })
 export class AllProductsComponent implements OnInit {
   products: any[] = [];
+  filteredProducts: any[] = [];
   paginatedProducts: any[] = [];
   currentPage: number = 1;
   itemsPerPage: number = 10;
   totalPages: number = 1;
+
+  // Search and filter properties
+  searchTerm: string = '';
+  filterCategory: string = '';
+  priceRange: { min: number | null; max: number | null } = {
+    min: null,
+    max: null,
+  };
+  stockStatus: string = '';
+  categories: string[] = [];
 
   constructor(
     @Inject(ProductService) private productService: ProductService,
@@ -33,8 +44,16 @@ export class AllProductsComponent implements OnInit {
     this.productService.getProducts().subscribe(
       (response) => {
         console.log('📦 Products fetched successfully:', response);
-        this.products = response;
-        this.updatePagination();
+        this.products = response.map(
+          (product: { category: any; [key: string]: any }) => ({
+            ...product,
+            categoryDisplay: this.getCategoryName(product.category),
+          })
+        );
+        this.categories = [
+          ...new Set(this.products.map((p) => p.categoryDisplay)),
+        ];
+        this.applyFilters();
       },
       (error) => {
         console.error('❌ Error fetching products:', error);
@@ -42,11 +61,74 @@ export class AllProductsComponent implements OnInit {
     );
   }
 
+  private getCategoryName(category: any): string {
+    // Handle different category formats:
+    // If category is an object with name property
+    if (category && typeof category === 'object' && 'name' in category) {
+      return category.name;
+    }
+    // If category is already a string
+    if (typeof category === 'string') {
+      return category;
+    }
+    // Default case
+    return 'Uncategorized';
+  }
+
+  applyFilters(): void {
+    this.filteredProducts = this.products.filter((product) => {
+      // Search by name
+      const matchesSearch =
+        !this.searchTerm ||
+        product.name.toLowerCase().includes(this.searchTerm.toLowerCase());
+
+      // Filter by category name
+      const matchesCategory =
+        !this.filterCategory || product.categoryDisplay === this.filterCategory;
+
+      // Filter by price range
+      const matchesPriceRange =
+        (this.priceRange.min === null ||
+          product.price >= this.priceRange.min) &&
+        (this.priceRange.max === null || product.price <= this.priceRange.max);
+
+      // Filter by stock status
+      let matchesStockStatus = true;
+      if (this.stockStatus === 'low') {
+        matchesStockStatus = product.stock < 5;
+      } else if (this.stockStatus === 'medium') {
+        matchesStockStatus = product.stock >= 5 && product.stock < 10;
+      } else if (this.stockStatus === 'high') {
+        matchesStockStatus = product.stock >= 10;
+      }
+
+      return (
+        matchesSearch &&
+        matchesCategory &&
+        matchesPriceRange &&
+        matchesStockStatus
+      );
+    });
+
+    this.currentPage = 1;
+    this.updatePagination();
+  }
+
+  resetFilters(): void {
+    this.searchTerm = '';
+    this.filterCategory = '';
+    this.priceRange = { min: null, max: null };
+    this.stockStatus = '';
+    this.applyFilters();
+  }
+
   updatePagination(): void {
-    this.totalPages = Math.ceil(this.products.length / this.itemsPerPage);
+    this.totalPages = Math.ceil(
+      this.filteredProducts.length / this.itemsPerPage
+    );
     const startIndex = (this.currentPage - 1) * this.itemsPerPage;
     const endIndex = startIndex + this.itemsPerPage;
-    this.paginatedProducts = this.products.slice(startIndex, endIndex);
+    this.paginatedProducts = this.filteredProducts.slice(startIndex, endIndex);
   }
 
   getPages(): number[] {
