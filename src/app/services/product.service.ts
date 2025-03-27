@@ -1,8 +1,28 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of, throwError } from 'rxjs';
-import { map, tap, catchError, debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
+import {
+  map,
+  tap,
+  catchError,
+  debounceTime,
+  distinctUntilChanged,
+  switchMap,
+} from 'rxjs/operators';
 
+interface Review {
+  _id: string;
+  user_name: string; // Now using simple name field instead of user_id
+  product_id: string;
+  rating: number;
+  review: string;
+  createdAt: Date;
+}
+interface ApiResponse<T> {
+  success: boolean;
+  message?: string;
+  data: T;
+}
 @Injectable({
   providedIn: 'root',
 })
@@ -50,13 +70,11 @@ export class ProductService {
 
     if (/^[0-9a-fA-F]{24}$/.test(query)) {
       return this.searchById(query).pipe(
-        map(product => product ? [product] : [])
+        map((product) => (product ? [product] : []))
       );
     }
 
-    return this.searchProducts(query).pipe(
-      map(response => response.data)
-    );
+    return this.searchProducts(query).pipe(map((response) => response.data));
   }
 
   getProductById(id: string): Observable<any> {
@@ -79,7 +97,9 @@ export class ProductService {
       );
   }
 
-  searchProducts(query: string): Observable<{ data: any[], isPartialMatch: boolean }> {
+  searchProducts(
+    query: string
+  ): Observable<{ data: any[]; isPartialMatch: boolean }> {
     const encodedQuery = encodeURIComponent(query);
     return this.http
       .get<any>(`${this.apiUrl}/search?q=${encodedQuery}`, {
@@ -110,10 +130,45 @@ export class ProductService {
 
   private localSearch(query: string): any[] {
     const lowerQuery = query.toLowerCase();
-    return this.allProducts.filter((product) =>
-      product.name?.toLowerCase().includes(lowerQuery) ||
-      product.category?.name?.toLowerCase().includes(lowerQuery) ||
-      product._id?.toLowerCase().includes(lowerQuery)
+    return this.allProducts.filter(
+      (product) =>
+        product.name?.toLowerCase().includes(lowerQuery) ||
+        product.category?.name?.toLowerCase().includes(lowerQuery) ||
+        product._id?.toLowerCase().includes(lowerQuery)
     );
+  }
+  getProductReviews(productId: string): Observable<Review[]> {
+    return this.http
+      .get<Review[]>(`${this.apiUrl}/productreview/${productId}`)
+      .pipe(
+        catchError((error) => {
+          if (error.status === 404) {
+            return of([]); // Return empty array if no reviews found
+          }
+          throw error;
+        })
+      );
+  }
+
+  createReview(
+    productId: string,
+    reviewData: {
+      user_name: string;
+      rating: number;
+      review: string;
+    }
+  ): Observable<any> {
+    const payload = {
+      product_id: productId,
+      user_name: reviewData.user_name,
+      rating: reviewData.rating,
+      review: reviewData.review,
+    };
+
+    return this.http.post(`${this.apiUrl}/createreview`, payload, {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+    });
   }
 }
