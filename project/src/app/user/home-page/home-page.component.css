@@ -1,0 +1,168 @@
+/* General Styles */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background-color: #f2f0f1;
+    color: #111;
+}
+
+
+/* Container */
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: auto;
+}
+
+
+/* Hero Section */
+
+.hero {
+    background: #fff;
+    padding: 50px 0;
+}
+
+.hero-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.hero-text {
+    max-width: 50%;
+}
+
+.hero-text h2 {
+    font-size: 2.5rem;
+    font-weight: bold;
+}
+
+.hero-text p {
+    margin: 15px 0;
+}
+
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background: black;
+    color: white;
+    text-decoration: none;
+    margin-top: 10px;
+}
+
+.stats {
+    margin-top: 20px;
+}
+
+.stats span {
+    display: block;
+    margin-top: 5px;
+    font-weight: bold;
+}
+
+
+/* Hero Image */
+
+.hero-image img {
+    width: 100%;
+    max-width: 500px;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+
+/* Brand Section */
+
+.brands {
+    background: black;
+    color: white;
+    padding: 20px 0;
+    text-align: center;
+}
+
+.brands span {
+    margin: 0 20px;
+    font-weight: bold;
+}
+
+
+/* Product Card Styling */
+
+.product-card {
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.product-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+
+/* Rating Style */
+
+.rating span {
+    font-size: 1.2rem;
+}
+
+.category-card {
+    position: relative;
+    overflow: hidden;
+    border-radius: 10px;
+    transition: transform 0.3s ease-in-out;
+}
+
+.category-card img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.category-card .overlay {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    background: rgba(0, 0, 0, 0.6);
+    color: white;
+    padding: 8px 15px;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 5px;
+}
+
+.category-card:hover {
+    transform: scale(1.05);
+}
+
+.category-card:hover img {
+    opacity: 0.8;
+}
+
+
+/* Responsive */
+
+@media (max-width: 768px) {
+    .hero-content {
+        flex-direction: column;
+        text-align: center;
+    }
+    .hero-text {
+        max-width: 100%;
+    }
+    .hero-image {
+        margin-top: 20px;
+    }
+    nav ul {
+        display: none;
+        /* Hide menu for mobile (can add a menu icon later) */
+    }
+}

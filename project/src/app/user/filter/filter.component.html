@@ -1,0 +1,76 @@
+<aside class="filter-sidebar p-4 rounded shadow-sm">
+    <!-- Filter Title -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h3 class="filter-title">Filters</h3>
+      <i class="fas fa-sliders-h"></i>
+    </div>
+  
+    <!-- Categories -->
+    <div class="filter-group mb-4">
+      <h4 class="d-flex justify-content-between align-items-center">
+        T-Shirts <i class="fas fa-chevron-down"></i>
+      </h4>
+      <ul class="list-unstyled mt-2">
+        <li>Shorts</li>
+        <li>Shirts</li>
+        <li>Hoodie</li>
+        <li>Jeans</li>
+      </ul>
+    </div>
+  
+    <!-- Price Range -->
+    <div class="filter-group mb-4">
+      <h4>Price</h4>
+      <div class="price-range mt-2">
+        <input type="range" min="0" max="500" [(ngModel)]="priceRange" class="w-100">
+        <div class="d-flex justify-content-between">
+          <span>$0</span>
+          <span>${{ priceRange }}</span>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Colors -->
+    <div class="filter-group mb-4">
+      <h4>Colors</h4>
+      <div class="color-options d-flex flex-wrap gap-2 mt-2">
+        <span class="color" style="background-color: #FF0000;"></span>
+        <span class="color" style="background-color: #00FF00;"></span>
+        <span class="color" style="background-color: #FFFF00;"></span>
+        <span class="color" style="background-color: #0000FF;"></span>
+        <span class="color" style="background-color: #800080;"></span>
+        <span class="color" style="background-color: #000000;"></span>
+        <span class="color" style="background-color: #FFFFFF; border: 1px solid #ddd;"></span>
+      </div>
+    </div>
+  
+    <!-- Size -->
+    <div class="filter-group mb-4">
+      <h4>Size</h4>
+      <div class="size-options d-flex flex-wrap gap-2 mt-2">
+        <label class="size-option"><input type="checkbox"> XS</label>
+        <label class="size-option"><input type="checkbox"> S</label>
+        <label class="size-option"><input type="checkbox"> M</label>
+        <label class="size-option"><input type="checkbox"> L</label>
+        <label class="size-option"><input type="checkbox"> XL</label>
+        <label class="size-option"><input type="checkbox"> XXL</label>
+        <label class="size-option"><input type="checkbox"> 3XL</label>
+      </div>
+    </div>
+  
+    <!-- Dress Style -->
+    <div class="filter-group mb-4">
+      <h4 class="d-flex justify-content-between align-items-center">
+        Dress Style <i class="fas fa-chevron-down"></i>
+      </h4>
+      <ul class="list-unstyled mt-2">
+        <li>Casual</li>
+        <li>Formal</li>
+        <li>Party</li>
+        <li>Gym</li>
+      </ul>
+    </div>
+  
+    <!-- Apply Filter Button -->
+    <button class="apply-filter btn w-100">Apply Filter</button>
+  </aside>

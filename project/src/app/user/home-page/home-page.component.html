@@ -1,0 +1,119 @@
+<app-header></app-header>
+<div class="container">
+    <section class="hero">
+        <div class="container hero-content">
+            <div class="hero-text">
+                <h2>FIND CLOTHES THAT MATCH YOUR STYLE</h2>
+                <p>Browse through our diverse range of meticulously crafted garments.</p>
+                <a href="#" class="btn">Shop Now</a>
+                <div class="d-flex justify-content-between gap-1 mt-4">
+                    <span><strong>200+</strong> Brands</span>
+                    <span><strong>2,000+</strong> Products</span>
+                    <span><strong>30,000+</strong> Happy Customers</span>
+                </div>
+
+            </div>
+            <div class="hero-image">
+                <img src="assets/Rectangle 2.png" alt="Fashion Banner" height="100%" width="100%">
+            </div>
+        </div>
+    </section>
+
+    <!-- Brand Logos -->
+    <section class="brands">
+        <div class="container">
+            <span>VERSACE</span>
+            <span>ZARA</span>
+            <span>GUCCI</span>
+            <span>PRADA</span>
+            <span>Calvin Klein</span>
+        </div>
+    </section>
+
+    <section class="featured-products py-5">
+        <div class="container">
+            <h1 class="text-center text-dark mb-4">New Arrivals</h1>
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+                @for(item of products ; track $index){
+                <div class="col-lg-4 col-md-6 col-sm-6 col-12">
+                    <div class="card h-100 shadow-sm product-card">
+                        <img [src]="item.images[1]" class="card-img-top" alt="Product Image">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">{{item.name}}</h5>
+                            <div class="rating mb-2">
+                                <span class="text-warning">
+                                    ★★★★☆
+                                </span>
+                                <span class="fw-bold">{{item.avgRating}}</span>
+                            </div>
+                            <p class="card-text text-muted">Price: <strong class="text-dark">${{item.price}}</strong></p>
+                        </div>
+                    </div>
+                </div>
+                }
+            </div>
+        </div>
+    </section>
+    <div class="container text-center">
+        <button class="btn btn-primary text-center">View All</button>
+    </div>
+    <section class="featured-products py-5">
+        <div class="container">
+            <h1 class="text-center text-dark mb-4">Top Selling</h1>
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+                @for(item of products ; track $index){
+                <div class="col-lg-4 col-md-6 col-sm-6 col-12">
+                    <div class="card h-100 shadow-sm product-card">
+                        <img [src]="item.images[1]" class="card-img-top" alt="Product Image">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">{{item.name}}</h5>
+                            <div class="rating mb-2">
+                                <span class="text-warning">
+                                    ★★★★☆
+                                </span>
+                                <span class="fw-bold">{{item.avgRating}}</span>
+                            </div>
+                            <p class="card-text text-muted">Price: <strong class="text-dark">${{item.price}}</strong></p>
+                        </div>
+                    </div>
+                </div>
+                }
+            </div>
+        </div>
+    </section>
+    <div class="container text-center">
+        <button class="btn btn-primary text-center">View All</button>
+    </div>
+    <section class="browse-dress-style py-5">
+        <div class="container">
+            <h2 class="text-center fw-bold mb-4">BROWSE BY DRESS STYLE</h2>
+            <div class="row g-3">
+                @for (item of categories; track $index) {
+                <div class="col-6 col-md-3">
+                    <div class="category-card">
+                        <img [src]="item.image" class="img-fluid rounded" alt="Casual">
+                        <div class="overlay">{{item.name}}</div>
+                    </div>
+                </div>
+                }
+            </div>
+        </div>
+    </section>
+
+    <section class="testimonial py-5">
+        <div class="container">
+            <h1 class="text-center text-dark mb-4">What Our Customers Say</h1>
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3g-4">
+                <div class="col-lg-4 col-md-6 col-sm-6 col-12">
+                    <div class="card h-100 shadow-sm testimonial-card">
+                        <img src="assets/Rectangle 2.png" alt="Customer Image" class="card-img-top">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">John Doe</h5>
+                            <p class="card-text text-muted">"I love shopping at this store. The staff is always friendly and helpful."</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <app-footer></app-footer>

@@ -1,0 +1,134 @@
+/* Header */
+header {
+    background-color: #fff;
+  }
+  
+  /* Logo */
+  .logo {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #000;
+  }
+  
+  /* Navigation */
+  nav ul {
+    padding: 0;
+  }
+  
+  nav a {
+    text-decoration: none;
+    color: #000;
+    font-size: 1rem;
+    font-weight: 400;
+  }
+  
+  nav a:hover {
+    color: #555;
+  }
+  
+  nav .fas.fa-chevron-down {
+    font-size: 0.7rem;
+  }
+  
+  /* Header Actions (Search Bar, Cart, User) */
+  .header-actions {
+    /* No additional styles needed; Bootstrap handles the layout */
+  }
+  
+  /* Search Bar */
+  .search-bar {
+    background-color: #f5f5f5;
+    border-radius: 20px;
+    padding: 0.5rem 1rem;
+    width: 300px;
+  }
+  
+  .search-bar .fas.fa-search {
+    color: #888;
+    margin-right: 0.5rem;
+  }
+  
+  .search-bar input {
+    outline: none;
+    font-size: 0.9rem;
+    color: #888;
+    width: 100%;
+  }
+  
+  .search-bar input::placeholder {
+    color: #888;
+  }
+  
+  /* Cart and User Icons */
+  .cart, .user {
+    color: #000;
+    font-size: 1.2rem;
+    text-decoration: none;
+  }
+  
+  .cart:hover, .user:hover {
+    color: #555;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    header {
+      flex-wrap: wrap;
+      padding: 1rem;
+      gap: 1rem !important; /* Override Bootstrap gap */
+    }
+  
+    .logo {
+      font-size: 1.2rem;
+    }
+  
+    nav ul {
+      gap: 1rem !important; /* Override Bootstrap gap */
+      flex-wrap: wrap;
+      justify-content: center;
+      margin: 1rem 0;
+    }
+  
+    nav a {
+      font-size: 0.9rem;
+    }
+  
+    .header-actions {
+      gap: 1rem !important; /* Override Bootstrap gap */
+      width: 100%;
+      justify-content: space-between;
+    }
+  
+    .search-bar {
+      width: 100%;
+      max-width: 200px;
+    }
+  
+    .cart, .user {
+      font-size: 1rem;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.5rem !important; /* Override Bootstrap gap */
+    }
+  
+    nav ul {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.5rem !important; /* Override Bootstrap gap */
+    }
+  
+    .header-actions {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.9rem !important; /* Override Bootstrap gap */
+    }
+  
+    .search-bar {
+      max-width: 100%;
+    }
+  }

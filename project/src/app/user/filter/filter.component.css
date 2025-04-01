@@ -1,0 +1,118 @@
+/* Filter Sidebar */
+.filter-sidebar {
+    background-color: #fff;
+    width: 250px;
+  }
+  
+  /* Filter Title */
+  .filter-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin: 0;
+  }
+  
+  .filter-sidebar .fas.fa-sliders-h {
+    font-size: 1rem;
+    color: #888;
+  }
+  
+  /* Filter Group */
+  .filter-group h4 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 0;
+  }
+  
+  .filter-group .fas.fa-chevron-down {
+    font-size: 0.7rem;
+    color: #888;
+  }
+  
+  .filter-group ul {
+    padding: 0;
+    margin: 0;
+  }
+  
+  .filter-group li {
+    font-size: 0.9rem;
+    color: #555;
+    margin-bottom: 0.5rem;
+  }
+  
+  /* Price Range */
+  .price-range input[type="range"] {
+    -webkit-appearance: none;
+    appearance: none;
+    height: 5px;
+    background: #ddd;
+    border-radius: 5px;
+    outline: none;
+  }
+  
+  .price-range input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 15px;
+    height: 15px;
+    background: #000;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+  
+  .price-range input[type="range"]::-moz-range-thumb {
+    width: 15px;
+    height: 15px;
+    background: #000;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+  
+  .price-range span {
+    font-size: 0.9rem;
+    color: #555;
+  }
+  
+  /* Colors */
+  .color-options .color {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+  
+  /* Size */
+  .size-options .size-option {
+    font-size: 0.9rem;
+    color: #555;
+    padding: 0.3rem 0.6rem;
+    border: 1px solid #ddd;
+    border-radius: 15px;
+    cursor: pointer;
+  }
+  
+  .size-options input[type="checkbox"] {
+    margin-right: 0.3rem;
+  }
+  
+  /* Apply Filter Button */
+  .apply-filter {
+    background-color: #000;
+    color: #fff;
+    font-size: 0.9rem;
+    padding: 0.5rem;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+  }
+  
+  .apply-filter:hover {
+    background-color: #333;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .filter-sidebar {
+      width: 100%;
+      margin-bottom: 1rem;
+    }
+  }
