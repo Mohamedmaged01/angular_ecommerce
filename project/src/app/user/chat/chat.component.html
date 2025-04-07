@@ -1,0 +1,60 @@
+<!-- Floating Button -->
+<div class="welcome-section">
+  <div class="welcome-text">
+    <h1>Welcome to Your Smart Assistant!</h1>
+    <p>Our AI Chatbot is here to help you get quick answers, 
+      customer support, and instant information.<br>
+       Just hit the chat icon and start talking!</p>
+  </div>
+</div>
+
+
+<button class="chat-toggle" (click)="toggleChat()">💬</button>
+
+<!-- Chat Window -->
+<div class="chat-container" *ngIf="isChatVisible">
+  <div class="chat-header">
+    <div class="header-content">
+      <span>ChatBot</span>
+      <div>
+        <button class="clear-btn" (click)="clearChat()">🧹</button>
+        <button class="close-btn" (click)="toggleChat()">✖</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Welcome Section -->
+  <div class="chat-welcome">
+    <img src="https://png.pngtree.com/png-vector/20230225/ourmid/pngtree-smart-chatbot-cartoon-clipart-png-image_6620453.png" alt="Bot" class="chatbot-icon" />
+    <div class="welcome-text">
+      <h3 style="color: #2faf60;">Hello!</h3>
+      <p>Ask me anything anytime 😊</p>
+    </div>
+  </div>
+
+  <!-- Chat Messages -->
+  <div class="chat-messages" id="chat-messages">
+    <div *ngFor="let msg of messages" [ngClass]="{'message': true, 'user': msg.isUser, 'bot': !msg.isUser}">
+      <div>{{ msg.text }}</div>
+      <div class="message-timestamp">{{ msg.timestamp | date:'shortTime' }}</div>
+    </div>
+
+    <!-- Typing Indicator -->
+    <div class="message bot typing" *ngIf="isLoading">
+      <span>Typing</span>
+      <span class="dot">.</span><span class="dot">.</span><span class="dot">.</span>
+    </div>
+  </div>
+
+  <!-- Chat Input -->
+  <div class="chat-input">
+    <input
+      type="text"
+      placeholder="Type your message..."
+      [(ngModel)]="newMessage"
+      (keypress)="onKeyPress($event)"
+      [disabled]="isLoading"
+    />
+    <button (click)="sendMessage()" [disabled]="isLoading || !newMessage.trim()">Send</button>
+  </div>
+</div>

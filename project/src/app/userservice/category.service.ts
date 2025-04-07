@@ -8,8 +8,8 @@ import { HttpHeaders } from '@angular/common/http';
 })
 export class CategoryService {
   constructor(private http: HttpClient) {}
-  private apiUrl = 'http://localhost:3000/allcategory';
+  private apiUrl = 'http://localhost:3000';
   getCategories(): Observable<any> {
-    return this.http.get(this.apiUrl);
+    return this.http.get(`${this.apiUrl}/allcategory`);
   }
 }

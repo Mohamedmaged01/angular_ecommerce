@@ -116,3 +116,87 @@
       margin-bottom: 1rem;
     }
   }
+  
+
+
+  .filter-sidebar {
+    background-color: #f8f9fa;
+    min-width: 250px;
+  }
+  
+  .filter-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+  
+  .filter-group h4 {
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .color-circle {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 2px solid #ccc;
+    transition: transform 0.2s, border-color 0.2s;
+  }
+  
+  .color-circle:hover {
+    transform: scale(1.1);
+  }
+  
+  .color-circle.selected {
+    border-color: #000;
+    transform: scale(1.2);
+  }
+  
+  .size-option {
+    padding: 0.3rem 0.6rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .size-option input {
+    margin-right: 0.3rem;
+  }
+  
+  .apply-filter {
+    background: linear-gradient(135deg, #060607 0%, #000000 100%);
+    color: white;
+    padding: 0.5rem;
+    border: none;
+    border-radius: 20px;
+   
+  }
+  
+  .apply-filter:hover {
+    background: linear-gradient(135deg, #000000 50%, #123a77 50%);
+  }
+  
+  /* Price range styling */
+  .price-range input[type="range"] {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 8px;
+    background: #ddd;
+    border-radius: 4px;
+    outline: none;
+  }
+  
+  .price-range input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 16px;
+    height: 16px;
+    background: #007bff;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+  
+  .price-range label {
+    display: block;
+    font-size: 0.9rem;
+    margin-bottom: 0.2rem;
+  }

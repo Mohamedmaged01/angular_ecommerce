@@ -1,4 +1,6 @@
 import { Component , OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouterLink } from '@angular/router'; // Im
 import { HeaderComponent } from "../header/header.component";
 import { FooterComponent } from "../footer/footer.component";
 import { ProductService } from '../../userservice/product.service';
@@ -6,7 +8,7 @@ import { CategoryService } from '../../userservice/category.service';
 
 @Component({
   selector: 'app-home-page',
-  imports: [HeaderComponent, FooterComponent],
+  imports: [HeaderComponent, FooterComponent,CommonModule,RouterLink],
   templateUrl: './home-page.component.html',
   styleUrl: './home-page.component.css'
 })

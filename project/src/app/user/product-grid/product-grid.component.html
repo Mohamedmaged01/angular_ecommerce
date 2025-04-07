@@ -1,0 +1,53 @@
+<section class="product-grid flex-grow-1">
+  <h2>{{ categoryName }}</h2>
+  <div class="row" *ngIf="products.length > 0; else noProducts">
+    <div class="col-md-4 col-sm-6" *ngFor="let product of products">
+      <div class="product-card">
+        <div class="product-image">
+          <img [src]="product.featuredImage || product.images[0] || 'https://via.placeholder.com/300x200'" 
+               [alt]="product.name" class="img-fluid">
+        </div>
+        <div class="product-info">
+          <h3 class="product-title">{{ product.name }}</h3>
+          <p class="product-price">${{ product.price.toFixed(2) }}</p>
+          <div class="product-rating">
+            <span class="stars" [innerHTML]="getStars(product.avgRating)"></span>
+            <span class="rating-value">({{ product.avgRating || 0 }}/5)</span>
+          </div>
+          <div class="product-stock" [class.in-stock]="product.stock > 0" [class.out-of-stock]="product.stock <= 0">
+            {{ product.stock > 0 ? 'In Stock' : 'Out of Stock' }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pagination Controls -->
+  <div class="pagination" *ngIf="products.length > 0">
+    <button [disabled]="!hasPrevPage" (click)="changePage(currentPage - 1)" class="page-btn">
+      <i class="fas fa-chevron-left"></i> Previous
+    </button>
+    <span class="page-numbers">
+      <button *ngFor="let page of getPageNumbers()" 
+              [class.active]="page === currentPage" 
+              (click)="changePage(page)">
+        {{ page }}
+      </button>
+    </span>
+    <button [disabled]="!hasNextPage" (click)="changePage(currentPage + 1)" class="page-btn">
+      Next <i class="fas fa-chevron-right"></i>
+    </button>
+    <div class="page-info">Page {{ currentPage }} of {{ totalPages }} ({{ totalItems }} items)</div>
+  </div>
+
+  <!-- No Products Found Template -->
+  <ng-template #noProducts >
+    <div class="no-products-container">
+      <div class="no-products-content animate__animated animate__bounceIn">
+        <h3>Oops! No Products Found</h3>
+        <p>We couldn’t find any products matching your filters. Try adjusting your search criteria!</p>
+        <div class="no-products-icon">🛒</div>
+      </div>
+    </div>
+  </ng-template>
+</section>
