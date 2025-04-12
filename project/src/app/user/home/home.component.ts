@@ -3,6 +3,7 @@ import{HeaderComponent} from '../header/header.component'
 import{FilterComponent} from '../filter/filter.component'
 import{FooterComponent} from '../footer/footer.component'
 import{ProductGridComponent} from '../product-grid/product-grid.component'
+
 @Component({
   standalone: true,
   selector: 'app-home',

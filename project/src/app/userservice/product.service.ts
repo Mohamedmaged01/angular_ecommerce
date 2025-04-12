@@ -13,6 +13,9 @@ export class ProductService {
   getProducts(): Observable<any> {
     return this.http.get(`${this.apiUrl}/allproduct`);
   }
+  getproductById(id: string): Observable<any> {
+    return this.http.get(`${this.apiUrl}/products/${id}`);
+  }
 
   getProductsByFillter(filters: any ,page: number = 1, limit: number = 9): Observable<any> {
     let params = new HttpParams()

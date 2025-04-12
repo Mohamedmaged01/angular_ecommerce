@@ -1,9 +1,69 @@
+
+
+
+.product-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+}
+
+
+/* General button styling */
+.icon-btn {
+  
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 12px;
+  margin: 0 4px;
+  font-size: 20px;
+  transition: transform 0.3s ease, filter 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center !important;
+}
+
+.icon-btn:hover {
+  transform: scale(1.2);
+  filter: brightness(1.3);
+}
+
+/* Specific icon colors */
+.icon-btn.cart i {
+  color: #4A90E2; /* Sky Blue */
+}
+
+.icon-btn.heart i {
+  color: #FF6F61; /* Coral Red */
+}
+
+.icon-btn.eye i {
+  color: #F4C542; /* Mustard Yellow */
+}
+
+/* Optional: shadow for modern look */
+.icon-btn i {
+  text-shadow: 1px 1px 2px rgba(124, 7, 7, 0.1);
+}
+
+
+
+
+
+
+
+
 .product-grid {
+  
  
     padding: 20px;
   }
   
   .card {
+
+    border-radius: 15px;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
   }
   
@@ -13,8 +73,8 @@
   }
   
   .card-img-top {
-    height: 200px;
-    object-fit: cover;
+    height: 100px;
+    object-fit: fill;
   }
   
   .card-title {
@@ -81,7 +141,7 @@
 
 
   .product-grid {
-    padding: 20px;
+    padding: 40px;
     position: relative;
   }
   
@@ -107,10 +167,11 @@
   }
   
   .product-card {
+    height: 430px;
     background: #fff;
     border-radius: 15px;
     overflow: hidden;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.233);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     margin-bottom: 20px;
   }
@@ -121,9 +182,11 @@
   }
   
   .product-image img {
-    width: 100%;
-    height: 220px;
-    object-fit: cover;
+padding-left: 30px;
+    padding-top: 15px;
+    width: 80%;
+    height: 190px;
+    object-fit: fill;
     transition: transform 0.3s ease;
   }
   

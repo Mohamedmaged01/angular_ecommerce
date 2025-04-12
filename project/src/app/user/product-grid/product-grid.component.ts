@@ -1,9 +1,16 @@
 import { Component,Input, OnChanges ,SimpleChanges} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProductService } from '../../userservice/product.service';
+import { RouterModule } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+
+import { Router } from '@angular/router';
+import {WishlistService} from '../../userservice/wishlist.service';
 @Component({
+  standalone: true,
+  imports: [RouterModule, CommonModule ],
   selector: 'app-product-grid',
-  imports: [CommonModule],
+
   templateUrl: './product-grid.component.html',
   styleUrl: './product-grid.component.css'
 })
@@ -20,7 +27,11 @@ export class ProductGridComponent  implements OnChanges {
   hasNextPage: boolean = false;
   hasPrevPage: boolean = false;
 
-  constructor(private productService: ProductService) {}
+  constructor(private productService: ProductService,
+    private wishlistService: WishlistService,
+    private toastr: ToastrService,
+    private router: Router
+  ) {}
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['filters']|| changes['searchTerm']) {
@@ -30,6 +41,39 @@ export class ProductGridComponent  implements OnChanges {
       this.loadProducts();
     }
   }
+
+
+
+
+  addToFavorites(product: any): void {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      this.toastr.warning('You must register or log in first 🛑', 'Unauthorized');
+      // this.router.navigate(['/register']); // optional: redirect
+      return;
+    }
+
+    this.wishlistService.addToWishlist(product._id).subscribe({
+      next: () => {
+        this.toastr.success(`${product.name} added to your wishlist 💖`, 'Success');
+      
+      },
+      error: (err) => {
+        this.toastr.error('Could not add to wishlist ❌', 'Error');
+        console.error(err);
+      },
+    });
+  }
+
+
+
+
+
+
+
+
+
+
 
   loadProducts() {
     const finalFilters = {
@@ -103,5 +147,14 @@ export class ProductGridComponent  implements OnChanges {
     }
     return stars;
   }
+
+
+  addToCart(product: any) {
+    console.log('Added to cart:', product);
+  }
+  
+
+
+  
 
 }

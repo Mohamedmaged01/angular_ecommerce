@@ -4,7 +4,7 @@
     <div class="col-md-4 col-sm-6" *ngFor="let product of products">
       <div class="product-card">
         <div class="product-image">
-          <img [src]="product.featuredImage || product.images[0] || 'https://via.placeholder.com/300x200'" 
+          <img [src]="product.images[0] "
                [alt]="product.name" class="img-fluid">
         </div>
         <div class="product-info">
@@ -17,6 +17,19 @@
           <div class="product-stock" [class.in-stock]="product.stock > 0" [class.out-of-stock]="product.stock <= 0">
             {{ product.stock > 0 ? 'In Stock' : 'Out of Stock' }}
           </div>
+          <div class="product-actions">
+            <button class="icon-btn cart" (click)="addToCart(product)" title="Add to Cart">
+              <i class="fa-solid fa-cart-shopping"></i>
+            </button>
+            <button class="icon-btn heart" (click)="addToFavorites(product)" title="Add to Favorites">
+              <i class="fa-solid fa-heart"></i>
+            </button>
+            <button type="button" class="icon-btn eye" [routerLink]="['/detailes', product._id]" title="View Details">
+              <i class="fa-solid fa-eye"></i>
+            </button>
+            
+          </div>
+          
         </div>
       </div>
     </div>
