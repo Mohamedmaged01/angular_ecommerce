@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { CustomerService } from '../../services/customer.service';
@@ -10,6 +11,20 @@ import { CommonModule } from '@angular/common';
   templateUrl: './customer.component.html',
   styleUrl: './customer.component.css',
   imports: [NgIf, SidebarComponent, CommonModule],
+=======
+import { Component, OnInit } from '@angular/core';
+import { SidebarComponent } from '../sidebar/sidebar.component';
+import { RouterLink } from '@angular/router';
+import { CustomerService } from '../../services/customer.service';
+import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
+
+@Component({
+  selector: 'app-customer',
+  imports: [SidebarComponent, CommonModule],
+  templateUrl: './customer.component.html',
+  styleUrl: './customer.component.css',
+>>>>>>> cfc778f37f364fcf7db95d5992eaaf16feec3956
 })
 export class CustomerComponent implements OnInit {
   customers: any[] = [];
@@ -18,6 +33,7 @@ export class CustomerComponent implements OnInit {
 
   constructor(
     private customerService: CustomerService,
+<<<<<<< HEAD
     private router: Router,
     private cdr: ChangeDetectorRef
   ) {}
@@ -31,10 +47,24 @@ export class CustomerComponent implements OnInit {
     this.isLoading = true;
     this.errorMessage = null;
     console.log('Fetching customers from API...');
+=======
+    private router: Router
+  ) {}
+
+  ngOnInit(): void {
+    const token = localStorage.getItem('token');
+    console.log('Stored Token:', token);
+    this.loadCustomers();
+  }
+  loadCustomers(): void {
+    this.isLoading = true;
+    this.errorMessage = null;
+>>>>>>> cfc778f37f364fcf7db95d5992eaaf16feec3956
 
     this.customerService.getCustomers().subscribe({
       next: (response) => {
         console.log('API Response:', response);
+<<<<<<< HEAD
 
         if (!response || !response.users) {
           console.error('Response is empty or missing "users" key!');
@@ -50,11 +80,26 @@ export class CustomerComponent implements OnInit {
       error: (error) => {
         console.error('API Error:', error);
         this.errorMessage = error.error?.message || 'Failed to load customers';
+=======
+        this.customers = response.customers || response;
+        this.isLoading = false;
+        console.log(this.customers);
+      },
+      error: (error) => {
+        console.error('API Error:', error);
+        if (error.status === 401) {
+          this.errorMessage = 'Authentication failed. Please login again.';
+        } else {
+          this.errorMessage =
+            error.error?.message || 'Failed to load customers';
+        }
+>>>>>>> cfc778f37f364fcf7db95d5992eaaf16feec3956
         this.isLoading = false;
       },
     });
   }
 
+<<<<<<< HEAD
   deleteCustomer(id: string): void {
     if (!confirm('Are you sure you want to delete this customer?')) return;
 
@@ -66,6 +111,22 @@ export class CustomerComponent implements OnInit {
       error: (error) => {
         console.error('API Error:', error);
         this.errorMessage = error.error?.message || 'Failed to delete customer';
+=======
+  deleteCustomers(id: any) {
+    this.customerService.deleteCustomer(id).subscribe({
+      next: (response) => {
+        console.log('API Response:', response);
+        this.loadCustomers();
+      },
+      error: (error) => {
+        console.error('API Error:', error);
+        if (error.status === 401) {
+          this.errorMessage = 'Authentication failed. Please login again.';
+        } else {
+          this.errorMessage =
+            error.error?.message || 'Failed to delete customer';
+        }
+>>>>>>> cfc778f37f364fcf7db95d5992eaaf16feec3956
         this.isLoading = false;
       },
     });

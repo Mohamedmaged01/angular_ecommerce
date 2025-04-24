@@ -1,0 +1,77 @@
+<div class="main-container">
+  <div class="container">
+    <div class="row">
+    
+      <div class="col-md-6 image-section">
+        <img
+          src="https://s3-alpha-sig.figma.com/img/75f3/94c0/a1c7dc5b68a42239311e510f54d8cd59?Expires=1743984000&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=MalUsgpZiWD1b2D0CgTQaWjoSSfCVEcTgNJFL9n6fOZWDcdS8vwbGNo6eaufKrknIaRsvPEOwallTnjzQIB~DEBdMRRzsunRpmRoYhe6yU00-DBNFBLbOZLTubyn7Y6S4Jfn3P6OwFRPfIontXYBpGtzUzrnn5SqpUFwLCYF0etSr5W~QgkXKXZTAnGTOAdxL9pFGArx3px2KxPvgOjLOQUCnh9PH3UBG4~PeV3a4iGzXNc9tTl8I0xk1veWJDLubf1n4LrCX9oxGeFOulMagI5epqtQbkKtwoNlfLwGi0rOKR1zcND0aY6VyPG16SeqqWzG46jbw77R4EqwwCt-~g__"
+          alt="Smartphone and Cart">
+      </div>
+      
+      <div class="col-md-6 form-section">
+        <h2>Sign in to your account</h2>
+        <p>Enter your details below</p>
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+          @if (successMessage) {
+            <div class="success-message">{{ successMessage }}</div>
+          }
+          @if (errorMessage) {
+            <div class="error-message">{{ errorMessage }}</div>
+          }
+
+       
+          <div class="mb-3">
+            <input type="text" class="form-control" placeholder="Email"
+              formControlName="email"
+              [class.is-invalid]="f['email'].touched && f['email'].errors" 
+              required>
+            @if (f['email'].touched && f['email'].errors) {
+              <div class="invalid-feedback">
+                @if (f['email'].errors['required']) {
+                  <div>Email is required</div>
+                }
+                @if (f['email'].errors['email']) {
+                  <div>Please enter a valid email</div>
+                }
+              </div>
+            }
+          </div>
+
+         
+          <div class="mb-3 position-relative">
+            <input 
+              [type]="showPassword ? 'text' : 'password'" 
+              class="form-control" 
+              placeholder="Password"
+              formControlName="password"
+              [class.is-invalid]="f['password'].touched && f['password'].errors"
+              required>
+            <span class="password-toggle" (click)="togglePasswordVisibility()" [attr.aria-label]="showPassword ? 'Hide password' : 'Show password'">
+              <i [class]="showPassword ? 'fas fa-eye-slash' : 'fas fa-eye'"></i>
+            </span>
+            @if (f['password'].touched && f['password'].errors) {
+              <div class="invalid-feedback">
+                @if (f['password'].errors['required']) {
+                  <div>Password is required</div>
+                }
+                @if (f['password'].errors['minlength']) {
+                  <div>Minimum length is 8 characters</div>
+                }
+              </div>
+            }
+          </div>
+
+     
+          <button type="submit" class="btn btn-create w-100"
+            [disabled]="loginForm.invalid || isSubmitting">
+            {{ isSubmitting ? 'Signing In...' : 'Sign In' }}
+          </button>
+        </form>
+        <div class="login-link">
+          <span>Don't have an account? </span>
+          <a routerLink="/signup">Sign up</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

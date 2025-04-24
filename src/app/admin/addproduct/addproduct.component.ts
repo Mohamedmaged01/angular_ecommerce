@@ -46,6 +46,8 @@ export class AddProductComponent {
   }
   addProduct(): void {
     console.log('🚀 Submitting Product:', this.product);
+
+    // Check if required fields are missing
     if (
       !this.product.name ||
       !this.product.price ||

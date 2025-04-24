@@ -39,8 +39,11 @@ export class OrderService {
       return this.http.get<any>(`${this.API_URL2}/${userid}`);
     }
 
+<<<<<<< HEAD
     private API_URL3 = 'http://localhost:3000/makeorder';
     placeOrder(orderData: any): Observable<any> {
       return this.http.post(`${this.API_URL3}`, orderData,);
     }
+=======
+>>>>>>> cfc778f37f364fcf7db95d5992eaaf16feec3956
 }

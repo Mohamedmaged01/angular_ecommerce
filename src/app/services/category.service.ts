@@ -7,7 +7,14 @@ import { Observable, throwError } from 'rxjs';
 })
 export class CategoryService {
   private API_URL = 'http://localhost:3000/allcategory';
+<<<<<<< HEAD
   constructor(private http: HttpClient) {}
+=======
+
+  constructor(private http: HttpClient) {}
+
+
+>>>>>>> cfc778f37f364fcf7db95d5992eaaf16feec3956
   getCategories(): Observable<any> {
     const token = localStorage.getItem('token');
     if (!token) {
