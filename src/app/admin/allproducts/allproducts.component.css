@@ -1,0 +1,150 @@
+/* ================= General Styles ================= */
+body {
+  font-family: "Poppins", sans-serif;
+  background-color: #1e1f26; /* Dark mode background */
+  color: #e4e4e4;
+}
+
+.container {
+  background: #252731;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* ================= Header ================= */
+h1 {
+  font-weight: 600;
+  color: #a855f7;
+}
+
+/* ================= Buttons ================= */
+.btn-primary {
+  background: linear-gradient(135deg, #a855f7, #7b5ef7);
+  border: none;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+  background: #7b5ef7;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(168, 85, 247, 0.3);
+}
+
+.btn-warning {
+  background: #ffc107;
+  color: #212529;
+  border: none;
+}
+
+.btn-danger {
+  background: #dc3545;
+  border: none;
+}
+
+.btn-warning:hover,
+.btn-danger:hover {
+  filter: brightness(1.2);
+}
+
+/* ================= Filters Section ================= */
+.card {
+  background: #2a2d3a;
+  border: none;
+  border-radius: 10px;
+}
+
+.card-body {
+  padding: 1.5rem;
+}
+
+.form-label {
+  color: #c7c9d3;
+  font-weight: 500;
+}
+
+.form-control,
+.form-select {
+  background: #3a3e4b;
+  color: white;
+  border: 1px solid #4e505e;
+  border-radius: 6px;
+}
+
+.form-control:focus,
+.form-select:focus {
+  border-color: #a855f7;
+  box-shadow: 0px 0px 8px rgba(168, 85, 247, 0.5);
+}
+
+/* Price Range Inputs */
+.input-group-text {
+  background-color: #343a40;
+  color: white;
+  border: none;
+}
+
+/* ================= Table Styling ================= */
+.table {
+  background: #2a2d3a;
+  color: white;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.table th {
+  background: #3b3f4c;
+  color: #a855f7;
+  font-weight: 600;
+}
+
+.table-hover tbody tr:hover {
+  background-color: rgba(168, 85, 247, 0.15);
+}
+
+.actions-cell {
+  min-width: 180px;
+}
+
+/* Stock Status Colors */
+.text-danger {
+  color: #ff6b6b !important;
+}
+
+.text-warning {
+  color: #ffbe57 !important;
+}
+
+/* ================= Pagination ================= */
+.pagination .page-item .page-link {
+  background: none;
+  border: 1px solid #a855f7;
+  color: #a855f7;
+  transition: all 0.3s ease;
+}
+
+.pagination .page-item.active .page-link {
+  background: #a855f7;
+  color: white;
+}
+
+.pagination .page-item .page-link:hover {
+  background: #7b5ef7;
+  color: white;
+}
+
+/* ================= Mobile Responsiveness ================= */
+@media (max-width: 768px) {
+  .card-body .row > div {
+    margin-bottom: 1rem;
+  }
+
+  .table-responsive {
+    overflow-x: auto;
+  }
+
+  .container {
+    padding: 1rem;
+  }
+}
