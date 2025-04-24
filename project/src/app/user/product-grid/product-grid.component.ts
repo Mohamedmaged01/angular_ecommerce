@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ProductService } from '../../userservice/product.service';
 import { RouterModule } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-
+import {Product, CartService} from '../../userservice/cart.service';
 import { Router } from '@angular/router';
 import {WishlistService} from '../../userservice/wishlist.service';
 @Component({
@@ -19,9 +19,10 @@ export class ProductGridComponent  implements OnChanges {
   @Input() filters: any = {};
   @Input() searchTerm: any ='';
   products: any[] = [];
+
   categoryName: string = 'Products';
   currentPage: number = 1;
-  limit: number = 9; // Match backend default
+  limit: number = 9; 
   totalPages: number = 0;
   totalItems: number = 0;
   hasNextPage: boolean = false;
@@ -30,7 +31,8 @@ export class ProductGridComponent  implements OnChanges {
   constructor(private productService: ProductService,
     private wishlistService: WishlistService,
     private toastr: ToastrService,
-    private router: Router
+    private router: Router,
+    private cartService: CartService
   ) {}
 
   ngOnChanges(changes: SimpleChanges) {
@@ -150,8 +152,35 @@ export class ProductGridComponent  implements OnChanges {
 
 
   addToCart(product: any) {
-    console.log('Added to cart:', product);
+    const token = localStorage.getItem('token');
+    if (!token) {
+      this.toastr.warning('You must register or log in first 🛑', 'Unauthorized');
+    
+      return;
+    }
+
+    if (product.stock <= 0) {
+      this.toastr.error(`${product.name} is out of stock ❌`, 'Error');
+      return;
+    }
+
+    const cartProduct: Product = {
+      productid: product._id,
+      quantity: 1 
+    };
+
+    this.cartService.addToCart([cartProduct]).subscribe({
+      next: (response) => {
+        this.toastr.success(`${product.name} added to cart 🛒`, 'Success');
+      },
+      error: (err) => {
+        const errorMessage = err.error.message || 'Failed to add to cart';
+        this.toastr.error(errorMessage, 'Error');
+        console.error('Cart error:', err);
+      }
+    });
   }
+
   
 
 

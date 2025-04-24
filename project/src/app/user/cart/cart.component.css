@@ -1,0 +1,22 @@
+.text-gradient {
+    background: linear-gradient(to right, #00c6ff, #0072ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  
+  @keyframes fadeOut {
+    from {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    to {
+      opacity: 0;
+      transform: translateX(50px);
+    }
+  }
+  
+  /* optional animation with Angular trigger */
+  :host ::ng-deep tr[removed] {
+    animation: fadeOut 0.4s forwards;
+  }
+  

@@ -4,6 +4,7 @@ import { HomePageComponent } from './user/home-page/home-page.component';
 import {ChatComponent} from './user/chat/chat.component';
 import{DetailesComponent} from './user/detailes/detailes.component';
 import{WishlistComponent} from './user/wishlist/wishlist.component';
+import{CartComponent} from './user/cart/cart.component';
 export const routes: Routes = [
     {
         path: '',
@@ -28,5 +29,11 @@ export const routes: Routes = [
         path: 'wishlist',
         component:WishlistComponent,
         title: 'wishlist'
+    },
+
+    {
+        path: 'cart',
+        component:CartComponent,
+        title: 'cart'
     }
 ];
